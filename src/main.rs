@@ -12,6 +12,16 @@ use embassy_stm32::{
     gpio::{Input, Level, Output, Pull, Speed},
 };
 
+macro_rules! qbench {
+    ($fn: expr, $freq: literal) => {{
+        let before = Instant::now();
+        $fn;
+        let diff = Instant::now() - before;
+        diff.as_ticks() / ($freq * 1_000_000)
+
+    }};
+}
+
 #[embassy_executor::main]
 async fn main(_s: Spawner) {
     let pp = embassy_stm32::init(Default::default());
@@ -28,10 +38,8 @@ async fn main(_s: Spawner) {
     loop {
         info!("waiting for rising edge...");
         btn.wait_for_rising_edge().await;
-        let before = Instant::now();
-        led.set_high();
-        let diff = Instant::now() - before; // calculate difference in ticks between before and after
-        info!("{:?}us", (diff.as_ticks() / 4)); // scale ticks to microsecondes (see ticks_hz_x used for embassy_time dependency)
+        
+        info!("{:?}us", qbench!(led.set_high(), 4_000_000)); // scale ticks to microsecondes (see ticks_hz_x used for embassy_time dependency)
 
         info!("waiting for falling edge...");
         btn.wait_for_falling_edge().await;

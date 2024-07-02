@@ -11,8 +11,7 @@ embassy-stm32 = { version = "*", features = [
     "time-driver-any",
     "memory-x",
     "rt",
-    "trustzone-secure",
-], path = "../embassy/embassy-stm32" }
+]}
 embassy-sync = { version = "0.6.0", features = ["defmt"] }
 embassy-executor = { version = "0.5.0", features = [
     "task-arena-size-32768",
