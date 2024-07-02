@@ -1,0 +1,14 @@
+{
+    "configurations": [
+    {
+        "cwd": "${workspaceFolder}",
+        "executable": "./target/thumbv8m.main-none-eabihf/release/stm32u5-first-steps",
+        "name": "Debug with ST-Link",
+        "request": "launch",
+        "type": "cortex-debug",
+        "runToEntryPoint": "main",
+        "showDevDebugOutput": "none",
+        "servertype": "stlink"
+    }
+    ]
+}

@@ -1,10 +1,17 @@
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
-runner = "probe-rs run --chip STM32U575ZITxQ"
+runner = [
+    "probe-rs",
+    "run",
+    "--chip",
+    "STM32U575ZITxQ",
+    "--log-format",
+    "{[ {t:010} {L:bold}{F:white}:{l:white}]} {s}",
+]
 rustflags = [
     # LLD (shipped with the Rust toolchain) is used as the default linker
     "-Clink-arg=-Tlink.x",
     "-Clink-arg=-Tdefmt.x",
-    "-Clink-arg=-nmagic"
+    "-Clink-arg=-nmagic",
     # "-C", "link-arg=-Tstlog.x",
 
     # if you run into problems with LLD switch to the GNU linker by commenting out
@@ -24,3 +31,6 @@ target = "thumbv8m.main-none-eabihf"
 
 [env]
 DEFMT_LOG = "info"
+
+[profile.release]
+debug = true
