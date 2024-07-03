@@ -1,14 +1,26 @@
 {
     "configurations": [
-    {
-        "cwd": "${workspaceFolder}",
-        "executable": "./target/thumbv8m.main-none-eabihf/release/stm32u5-first-steps",
-        "name": "Debug with ST-Link",
-        "request": "launch",
-        "type": "cortex-debug",
-        "runToEntryPoint": "main",
-        "showDevDebugOutput": "none",
-        "servertype": "stlink"
-    }
+        {
+            "cwd": "${workspaceFolder}/stm32u5",
+            "preLaunchTask": "build debug",
+            "executable": "./target/thumbv8m.main-none-eabihf/debug/app",
+            "name": "Debug App",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "stlink",
+        },
+        {
+            "cwd": "${workspaceFolder}/stm32u5",
+            "preLaunchTask": "build release",
+            "executable": "./target/thumbv8m.main-none-eabihf/release/app",
+            "name": "Debug App Release",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "stlink"
+        }
     ]
 }

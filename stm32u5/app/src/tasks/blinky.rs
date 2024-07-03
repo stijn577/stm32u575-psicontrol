@@ -17,8 +17,8 @@ pub async fn blinky(mut btn: ExtiInput<'static, PC13>, mut led: Output<'static, 
         qbench!(led.set_low(), 4_000_000);
 
         Timer::after_secs(1).await;
-
-        qbench!(led.toggle(), 4_000_000);
+        
+        qbench!(led.set_low(), 4_000_000);
 
         Timer::after_secs(1).await;
 
