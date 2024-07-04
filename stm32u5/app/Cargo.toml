@@ -33,15 +33,18 @@ defmt-rtt = "0.4"
 
 cortex-m = { version = "0.7.6", features = [
     "inline-asm",
-    "critical-section-single-core",
+    "critical-section",
 ] }
 cortex-m-rt = "0.7.0"
 embedded-hal = "1.0.0"
 
 panic-probe = { version = "0.3", features = ["print-defmt"] }
+heapless = { version = "0.8.0", features = ["defmt-03"] }
 
 [dependencies.functions]
 path = "../../functions"
+[dependencies.setup]
+path = "../setup"
 
 [[bin]]
 name = "app"

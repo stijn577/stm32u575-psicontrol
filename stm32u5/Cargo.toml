@@ -1,15 +1,16 @@
 [workspace]
 members = ["app", "setup", "target-tests"]
 resolver = "2"
+default-members = ["app"]
 
-[profile.dev]
-codegen-units = 1
-incremental = false
-lto = 'fat'
-opt-level = 's'
+# [profile.dev]
+# codegen-units = 1
+# incremental = false
+# lto = 'fat'
+# opt-level = 's'
 
-[profile.test]
-codegen-units = 1
-incremental = false
-lto = 'fat'
-opt-level = 's'
+# [profile.test]
+# codegen-units = 1
+# incremental = false
+# lto = 'fat'
+# opt-level = 's'
