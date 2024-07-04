@@ -1,25 +1,27 @@
 #![no_std]
 #![no_main]
 
-use defmt_rtt as _;
-use panic_probe as _;
-
 use defmt::info;
 use embassy_executor::Spawner;
 use setup::Board;
-use tasks::{uart::uart_rx, wfi_btn_set_led::wfi_btn_set_led};
+use tasks::{pwm::pwm_gen, uart::uart_rx, wfi_btn_set_led::exti_btn};
 
-mod tasks;
+use defmt_rtt as _;
+use panic_probe as _;
+
 #[macro_use]
 mod macros;
+mod tasks;
 
 #[embassy_executor::main]
-async fn main(_s: Spawner) {
-
-    info!("Hello world");
-
+async fn main(s: Spawner) {
     let board = Board::init();
 
-    _s.spawn(uart_rx(board.usart1)).ok();
-    _s.spawn(wfi_btn_set_led(board.btn, board.led)).ok();
+    info!("Board initialized");
+
+    s.spawn(uart_rx(board.usart1)).expect("Failed to start task");
+    s.spawn(exti_btn(board.btn, board.led)).expect("Failed to start task");
+    s.spawn(pwm_gen(board.pwm)).expect("Failed to start task");
+
+    info!("Tasks spawned");
 }

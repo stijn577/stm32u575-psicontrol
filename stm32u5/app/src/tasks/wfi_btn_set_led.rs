@@ -1,14 +1,11 @@
 use defmt::info;
-use embassy_stm32::{
-    exti::ExtiInput,
-    gpio::Output,
-    peripherals::{PC13, PC7},
-};
+use embassy_executor::task;
+use setup::typedefs::{Btn, Led};
 
 // use crate::qbench;
 
-#[embassy_executor::task]
-pub async fn wfi_btn_set_led(mut btn: ExtiInput<'static, PC13>, mut led: Output<'static, PC7>) {
+#[task]
+pub async fn exti_btn(mut btn: Btn, mut led: Led) {
     loop {
         btn.wait_for_rising_edge().await;
         info!("Button pressed");
