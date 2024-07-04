@@ -17,8 +17,7 @@ mod tests {
 
     #[init]
     fn init() -> Board {
-        let pp = embassy_stm32::init(Default::default());
-        Board::init(pp)
+        Board::init()
     }
 
     #[test]

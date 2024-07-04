@@ -1,1 +1,14 @@
-how to set up unit testing for embedded: https://ferrous-systems.com/blog/test-embedded-app/
+basics: 
+    ownership: https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html 
+    enums (and nullptr as enum variant): https://doc.rust-lang.org/book/ch06-00-enums.html
+    error handling: https://doc.rust-lang.org/book/ch09-00-error-handling.html (built on enums)
+
+embedded:
+    logging: https://defmt.ferrous-systems.com/introduction
+    project structure: https://ferrous-systems.com/blog/test-embedded-app/
+    cargo workspaces: https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html
+
+
+advanced:
+    ffi with C: https://dev.to/theembeddedrustacean/rust-ffi-and-bindgen-integrating-embedded-c-code-in-rust-26j6
+    async: https://rust-lang.github.io/async-book/

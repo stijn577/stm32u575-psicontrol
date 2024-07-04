@@ -11,6 +11,7 @@ embassy-stm32 = { version = "*", features = [
     "defmt",
     "exti",
     "stm32u575zi",
+    "time",
     "time-driver-any",
     "memory-x",
     "rt",

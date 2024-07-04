@@ -15,7 +15,7 @@
 /// qbench!(led.set_high(), 4_000_000);
 /// ```
 /// this would then output: something like
-/// ```bash
+/// ```txt
 /// [ 140.236815 INFO src/main.rs:26  ] "led.set_high()" took 7.25e-6s = 7.25us
 /// ```
 #[macro_export]
