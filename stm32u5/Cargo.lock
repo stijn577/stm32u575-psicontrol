@@ -8,6 +8,8 @@ version = "0.1.0"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",
+ "defmt",
+ "defmt-rtt",
  "embassy-executor",
  "embassy-stm32",
  "embassy-sync 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",

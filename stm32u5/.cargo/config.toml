@@ -32,7 +32,7 @@ rustflags = [
 target = "thumbv8m.main-none-eabihf"
 
 [env]
-DEFMT_LOG = "trace"
+DEFMT_LOG = "info"
 
 [profile.dev]
 debug = true

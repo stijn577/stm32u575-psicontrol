@@ -11,7 +11,7 @@ use embassy_stm32::{
     Config,
 };
 
-// use defmt_rtt as _;
+use defmt_rtt as _;
 use panic_probe as _;
 
 #[embassy_executor::main]

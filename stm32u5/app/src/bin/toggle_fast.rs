@@ -2,16 +2,17 @@
 #![no_main]
 
 use embassy_executor::{task, Spawner};
-use embassy_stm32::{gpio::{Level, Output, Speed}, rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale}, Config};
-use setup::{typedefs::Led, Board};
+use embassy_stm32::{
+    gpio::{Level, Output, Speed},
+    rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
+    Config,
+};
 
-// use defmt_rtt as _;
+use defmt_rtt as _;
 use panic_probe as _;
 
 #[embassy_executor::main]
 async fn main(s: Spawner) {
-    // let board = Board::init();
-
     let mut config = Config::default();
     config.rcc.hsi = true;
     config.rcc.pll1 = Some(Pll {
@@ -25,7 +26,7 @@ async fn main(s: Spawner) {
     config.rcc.sys = Sysclk::PLL1_R;
     config.rcc.voltage_range = VoltageScale::RANGE1;
     config.rcc.mux.iclksel = Iclksel::HSI48;
-    
+
     let pp = embassy_stm32::init(config);
 
     let led = Output::new(pp.PC7, Level::Low, Speed::VeryHigh);
@@ -34,7 +35,7 @@ async fn main(s: Spawner) {
 }
 
 #[task]
-pub async fn toggle_fast(mut led: Led) {
+pub async fn toggle_fast(mut led: Output<'static>) {
     loop {
         led.set_high();
         led.set_low();
