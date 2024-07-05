@@ -14,3 +14,10 @@ default-members = ["app"]
 # incremental = false
 # lto = 'fat'
 # opt-level = 's'
+
+[profile.release]
+codegen-units = 1
+incremental = false
+lto = "fat"
+# we could use 'z' here to go even smaller, but this turns of loop vectorization
+opt-level = 's'

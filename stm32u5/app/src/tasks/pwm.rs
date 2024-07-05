@@ -1,12 +1,11 @@
 use embassy_executor::task;
 use embassy_stm32::timer::Channel;
 use embassy_time::Timer;
-use functions::pwm::PwmDuty;
 use setup::typedefs::Pwm;
 
 #[task]
 pub async fn pwm_gen(mut pwm: Pwm) {
-    defmt::info!("{:?}", pwm.get_max_duty());
+    // defmt::info!("{:?}", pwm.get_max_duty());
     let max = pwm.get_max_duty();
     // let pwm_duty = PwmDuty::new(pwm.get_max_duty());
 
@@ -15,11 +14,11 @@ pub async fn pwm_gen(mut pwm: Pwm) {
     loop {
         for i in 0..max {
             pwm.set_duty(Channel::Ch2, i);
-            Timer::after_millis(1).await
+            Timer::after_micros(500).await
         }
         for i in 0..max {
             pwm.set_duty(Channel::Ch2, max - i);
-            Timer::after_millis(1).await;
+            Timer::after_micros(500).await;
         }
 
         // pwm.set_duty(Channel::Ch2, pwm_duty.calc_duty(0).unwrap());

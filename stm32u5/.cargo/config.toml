@@ -5,7 +5,7 @@ runner = [
     "--chip",
     "STM32U575ZITxQ",
     "--log-format",
-    "{[ {t:010} {L:bold}{F:white}:{l:white}]} {s}",
+    "{[ {t:010} {L:bold:<5} {fff:white:<0}:{l:white:<0} ]} {s}",
 ]
 rustflags = [
     # LLD (shipped with the Rust toolchain) is used as the default linker
@@ -32,10 +32,10 @@ rustflags = [
 target = "thumbv8m.main-none-eabihf"
 
 [env]
-DEFMT_LOG = "info"
+DEFMT_LOG = "trace"
 
 [profile.dev]
 debug = true
 
 [profile.release]
-debug = true
+# debug = true

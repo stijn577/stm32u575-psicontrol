@@ -4,20 +4,17 @@
 #![no_std]
 #![no_main]
 
-use defmt::debug;
+// use defmt::debug;
 use embassy_stm32::{
     bind_interrupts,
     exti::ExtiInput,
-    gpio::{Input, Output, OutputType, Pull, Speed},
+    gpio::{Output, OutputType, Pull, Speed},
     peripherals::USART1,
-    rcc::{
-        self, AHBPrescaler, APBPrescaler, ClockSrc, Hsi48Config, LsConfig, PllConfig, RtcClockSource,
-        VoltageScale,
-    },
+    rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
     time::Hertz,
     timer::{
+        low_level::CountingMode,
         simple_pwm::{PwmPin, SimplePwm},
-        CountingMode,
     },
     usart::Uart,
     Config,
@@ -63,21 +60,19 @@ impl Board {
     pub fn init() -> Board {
         let mut config = Config::default();
 
-        {
-            config.rcc = Self::clock_config();
-        }
+        Self::_clock_config(&mut config);
 
         let pp = embassy_stm32::init(config);
 
-        let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::Low);
-        debug!("LED initialized");
+        let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
+        // debug!("LED initialized");
 
         // Warning:
         // The PC13 I/O used for the user button must be set to INPUT, pull‑down (PD) with
         // debouncing. Never set the PC13 to OUTPUT/LOW level to avoid a shortcut when the user
         // button is pressed.
-        let btn = Input::new(pp.PC13, Pull::Down);
-        debug!("Button initialized");
+        let btn = ExtiInput::new(pp.PC13, pp.EXTI13, Pull::Down);
+        // debug!("Button initialized");
 
         // it's ok to expect() here, because the device would not be initialized correctly if this fails
         let usart1 = Uart::new(
@@ -90,7 +85,7 @@ impl Board {
             Default::default(),
         )
         .expect("Failed to initialize USART1");
-        debug!("USART1 initialized");
+        // debug!("USART1 initialized");
 
         let pwm = SimplePwm::new(
             pp.TIM4,
@@ -101,31 +96,27 @@ impl Board {
             Hertz::khz(160),
             CountingMode::EdgeAlignedUp,
         );
-        debug!("PWM initialized");
+        // debug!("PWM initialized");
 
-        Self {
-            led,
-            btn,
-            usart1,
-            pwm,
-        }
+        Self { led, btn, usart1, pwm }
     }
 
-    fn clock_config() -> rcc::Config {
+    fn _clock_config(config: &mut Config) {
+        // just a helpful warning when someone did some stuff with the clocks
+        // debug!("Do not use HSE, it is not populated on the board");
+
         // use STM32CubeMX for clock config generation, than just copy paste the values
-        rcc::Config {
-            mux: ClockSrc::PLL1_R(PllConfig::msis_160mhz()),
-            ahb_pre: AHBPrescaler::DIV1,
-            apb1_pre: APBPrescaler::DIV1,
-            apb2_pre: APBPrescaler::DIV1,
-            apb3_pre: APBPrescaler::DIV1,
-            hsi48: Some(Hsi48Config { sync_from_usb: false }),
-            voltage_range: VoltageScale::RANGE1,
-            ls: LsConfig {
-                rtc: RtcClockSource::DISABLE,
-                lsi: false,
-                lse: None,
-            },
-        }
+        config.rcc.hsi = true;
+        config.rcc.pll1 = Some(Pll {
+            source: PllSource::HSI,
+            prediv: PllPreDiv::DIV1,
+            mul: PllMul::MUL10,
+            divp: None,
+            divq: None,
+            divr: Some(PllDiv::DIV1),
+        });
+        config.rcc.sys = Sysclk::PLL1_R;
+        config.rcc.voltage_range = VoltageScale::RANGE1;
+        config.rcc.mux.iclksel = Iclksel::HSI48;
     }
 }
