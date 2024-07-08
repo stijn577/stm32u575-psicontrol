@@ -12,6 +12,7 @@ harness = false
 [[bin]]
 name = "btn_interrupt"
 harness = false
+
 [[bin]]
 name = "btn_polling"
 harness = false
@@ -23,6 +24,17 @@ harness = false
 [[bin]]
 name = "toggle_fast_raw"
 harness = false
+
+## add purely functional code
+[dependencies.functions]
+version = "0.1.0"
+path = "../../functions"
+
+## add setup code 
+[dependencies.setup]
+version = "0.1.0"
+path = "../setup"
+
 
 [dependencies]
 embassy-stm32 = { path = "../../../embassy/embassy-stm32/", version = "0.1.0", features = [
@@ -63,12 +75,3 @@ panic-probe = { version = "0.3" }
 # heapless = { version = "0.8.0", features = ["defmt-03"] }
 
 
-## add purely functional code
-[dependencies.functions]
-version = "0.1.0"
-path = "../../functions"
-
-## add setup code 
-[dependencies.setup]
-version = "0.1.0"
-path = "../setup"

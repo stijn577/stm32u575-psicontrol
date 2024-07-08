@@ -16,11 +16,7 @@ mod tasks;
 async fn main(s: Spawner) {
     let board = Board::init();
 
-    // info!("Board initialized");
-
     s.spawn(uart_rx(board.usart1)).expect("Failed to start task");
     s.spawn(btn_interrupt(board.btn, board.led)).expect("Failed to start task");
     s.spawn(pwm_gen(board.pwm)).expect("Failed to start task");
-
-    // info!("Tasks spawned");
 }

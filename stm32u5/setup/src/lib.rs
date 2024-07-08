@@ -64,6 +64,10 @@ impl Board {
 
         let pp = embassy_stm32::init(config);
 
+        stm32_metapac::ICACHE.cr().write(|cr| {
+            cr.set_en(true);
+        });
+
         let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
         // debug!("LED initialized");
 
@@ -75,16 +79,7 @@ impl Board {
         // debug!("Button initialized");
 
         // it's ok to expect() here, because the device would not be initialized correctly if this fails
-        let usart1 = Uart::new(
-            pp.USART1,
-            pp.PA10,
-            pp.PA9,
-            Irqs,
-            pp.GPDMA1_CH10,
-            pp.GPDMA1_CH11,
-            Default::default(),
-        )
-        .expect("Failed to initialize USART1");
+        let usart1 = Uart::new(pp.USART1, pp.PA10, pp.PA9, Irqs, pp.GPDMA1_CH10, pp.GPDMA1_CH11, Default::default()).expect("Failed to initialize USART1");
         // debug!("USART1 initialized");
 
         let pwm = SimplePwm::new(

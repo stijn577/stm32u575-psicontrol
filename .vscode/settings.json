@@ -2,5 +2,6 @@
     "rust-analyzer.linkedProjects": [
         "Cargo.toml",
         "stm32u5/Cargo.toml",
-    ]
+    ],
+    "cortex-debug.variableUseNaturalFormat": false
 }
