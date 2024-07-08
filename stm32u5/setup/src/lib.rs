@@ -71,6 +71,13 @@ impl Board {
 
         let pp = embassy_stm32::init(config);
 
+        log!(info!("Enabling ICACHE..."));
+
+        stm32_metapac::ICACHE.cr().write(|cr| {
+            cr.set_en(true);
+        });
+        log!(debug!("ICACHE enabled"));
+
         log!(info!("Configuring Peripherals..."));
 
         let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);

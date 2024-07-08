@@ -8,27 +8,9 @@ harness = false
 
 [dependencies]
 embassy-stm32 = { path = "../../../embassy/embassy-stm32/", version = "0.1.0", features = [
-    "exti",
     "stm32u575zi",
-    "time",
-    "time-driver-any",
-    "memory-x",
-    "rt",
-    "trustzone-secure",
 ] }
-embassy-executor = { path = "../../../embassy/embassy-executor", version = "0.5.0", features = [
-    "task-arena-size-32768",
-    "arch-cortex-m",
-    "executor-thread",
-    "integrated-timers",
-] }
-embassy-time = { path = "../../../embassy/embassy-time", version = "0.3.1", features = [
-    # "defmt",
-    # "defmt-timestamp-uptime",
-    "tick-hz-160_000_000", # we need quite a high hz ticker, so we can be more accurate with Instant::now() measurements
-] }
-# embassy-usb = { version = "0.2.0", features = ["defmt"] }
-embassy-futures = { version = "0.1.0" }
+stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
 
 defmt = { version = "0.3.8", optional = true }
 defmt-rtt = "0.4.1"
@@ -37,10 +19,6 @@ cortex-m = { version = "0.7.7", features = [
     "inline-asm",
     "critical-section-single-core",
 ] }
-cortex-m-rt = "0.7.3"
-embedded-hal = "1.0.0"
-
-# panic-probe = { version = "0.3", features = ["print-defmt"] }
 
 [features]
 defmt = ["dep:defmt", "embassy-stm32/defmt"]
