@@ -20,6 +20,17 @@ harness = false
 name = "toggle_fast"
 harness = false
 
+## add purely functional code
+[dependencies.functions]
+version = "0.1.0"
+path = "../../functions"
+
+## add setup code 
+[dependencies.setup]
+version = "0.1.0"
+path = "../setup"
+features = ["defmt"]
+
 [dependencies]
 embassy-stm32 = { path = "../../../embassy/embassy-stm32/", version = "0.1.0", features = [
     "defmt",
@@ -50,20 +61,9 @@ embassy-time = { path = "../../../embassy/embassy-time", version = "0.3.1", feat
 defmt = "0.3"
 defmt-rtt = "0.4"
 
-cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section"] }
-cortex-m-rt = { version = "0.7.0", features = ["device"] }
+cortex-m = { version = "0.7.7", features = ["inline-asm", "critical-section"] }
+cortex-m-rt = { version = "0.7.3", features = ["device"] }
 embedded-hal = "1.0.0"
 
 panic-probe = { version = "0.3" }
 # heapless = { version = "0.8.0", features = ["defmt-03"] }
-
-
-## add purely functional code
-[dependencies.functions]
-version = "0.1.0"
-path = "../../functions"
-
-## add setup code 
-[dependencies.setup]
-version = "0.1.0"
-path = "../setup"

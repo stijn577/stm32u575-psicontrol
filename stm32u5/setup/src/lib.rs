@@ -4,7 +4,6 @@
 #![no_std]
 #![no_main]
 
-// use defmt::debug;
 use embassy_stm32::{
     bind_interrupts,
     exti::ExtiInput,
@@ -21,7 +20,12 @@ use embassy_stm32::{
 };
 use typedefs::{Btn, Led, Pwm, Uart1};
 
+#[cfg(feature = "defmt")]
+use defmt::{debug, info};
+
 pub mod typedefs;
+#[macro_use]
+mod macros;
 
 bind_interrupts!(struct Irqs {
     USART1 => embassy_stm32::usart::InterruptHandler<USART1>;
@@ -60,32 +64,28 @@ impl Board {
     pub fn init() -> Board {
         let mut config = Config::default();
 
+        log!(info!("Initializing board..."));
+        log!(info!("Configuring clocks..."));
+
         Self::_clock_config(&mut config);
 
         let pp = embassy_stm32::init(config);
 
+        log!(info!("Configuring Peripherals..."));
+
         let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
-        // debug!("LED initialized");
+        log!(debug!("Led initialized"));
 
         // Warning:
         // The PC13 I/O used for the user button must be set to INPUT, pull‑down (PD) with
         // debouncing. Never set the PC13 to OUTPUT/LOW level to avoid a shortcut when the user
         // button is pressed.
         let btn = ExtiInput::new(pp.PC13, pp.EXTI13, Pull::Down);
-        // debug!("Button initialized");
+        log!(debug!("Button initialized"));
 
         // it's ok to expect() here, because the device would not be initialized correctly if this fails
-        let usart1 = Uart::new(
-            pp.USART1,
-            pp.PA10,
-            pp.PA9,
-            Irqs,
-            pp.GPDMA1_CH10,
-            pp.GPDMA1_CH11,
-            Default::default(),
-        )
-        .expect("Failed to initialize USART1");
-        // debug!("USART1 initialized");
+        let usart1 = Uart::new(pp.USART1, pp.PA10, pp.PA9, Irqs, pp.GPDMA1_CH10, pp.GPDMA1_CH11, Default::default()).expect("Failed to initialize USART1");
+        log!(debug!("Usart1 initialized"));
 
         let pwm = SimplePwm::new(
             pp.TIM4,
@@ -96,7 +96,9 @@ impl Board {
             Hertz::khz(160),
             CountingMode::EdgeAlignedUp,
         );
-        // debug!("PWM initialized");
+        log!(debug!("Pwm initialized"));
+
+        log!(info!("Board initialized successfully!"));
 
         Self { led, btn, usart1, pwm }
     }

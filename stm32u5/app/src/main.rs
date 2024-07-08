@@ -3,10 +3,6 @@
 
 use defmt::info;
 use embassy_executor::Spawner;
-use embassy_stm32::{
-    exti::ExtiInput,
-    gpio::{Level, Output, Pull, Speed},
-};
 use setup::Board;
 use tasks::{btn_interrupt::btn_interrupt, pwm::pwm_gen, uart::uart_rx};
 
@@ -20,8 +16,6 @@ mod tasks;
 #[embassy_executor::main]
 async fn main(s: Spawner) {
     let board = Board::init();
-
-    info!("Board initialized!");
 
     s.spawn(uart_rx(board.usart1)).expect("Failed to start task");
     s.spawn(btn_interrupt(board.btn, board.led)).expect("Failed to start task");
