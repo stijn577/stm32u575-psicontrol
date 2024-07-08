@@ -78,3 +78,38 @@ It the outputs the following response:
 |  text | data |   bss |   dec |  hex | filename |
 | ----: | ---: | ----: | ----: | ---: | -------- |
 | 14228 |    8 | 33100 | 47336 | b8e8 | app      |
+
+### 3. cargo-bloat
+
+Cargo bloat allows .text section analysis to see what functions are taking up a lot of .text memory. This can help when trying to optimize binary output sizes or library crates. It can be run with a command looking like this:
+
+```bash
+cargo bloat --release --bin toggle_fast_raw
+```
+
+It outputs the following response:
+
+|  File |  .text |   Size | Crate Name                                                                                                                                   |
+| ----: | -----: | -----: | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| 24.3% |  53.4% | 5.2KiB | embassy_stm32 embassy_stm32::rcc::\_version::init_pll                                                                                        |
+|  9.6% |  21.1% | 2.0KiB | embassy_stm32 embassy_stm32::\_generated::<impl core::ops::arith::Div<stm32_metapac::rcc::vals::Plldiv> for embassy_stm32::time::Hertz>::div |
+|  6.6% |  14.5% | 1.4KiB | toggle_fast_raw toggle_fast_raw::\_\_cortex_m_rt_main                                                                                        |
+|  1.0% |   2.2% |   218B | embassy_stm32 TIM15                                                                                                                          |
+|  0.8% |   1.8% |   174B | embassy_stm32 EXTI0                                                                                                                          |
+|  0.7% |   1.5% |   148B | embassy_stm32 embassy_stm32::rcc::RccInfo::enable_and_reset_with_cs                                                                          |
+|  0.6% |   1.4% |   140B | embassy_stm32 embassy_stm32::dma::gpdma::\<impl embassy_stm32::dma::AnyChannel>::on_irq                                                      |
+|  0.5% |   1.1% |   108B | embassy_stm32 embassy_stm32::gpio::Flex::set_as_output                                                                                       |
+|  0.3% |   0.6% |    62B | cortex_m_rt Reset                                                                                                                            |
+|  0.2% |   0.4% |    40B | panic_probe rust_begin_unwind                                                                                                                |
+|  0.1% |   0.2% |    24B | [Unknown] HardFaultTrampoline                                                                                                                |
+|  0.1% |   0.2% |    18B | std core::option::unwrap_failed                                                                                                              |
+|  0.0% |   0.1% |     8B | std core::panicking::panic                                                                                                                   |
+|  0.0% |   0.1% |     8B | std core::panicking::panic_bounds_check                                                                                                      |
+|  0.0% |   0.1% |     8B | std core::panicking::panic_fmt                                                                                                               |
+|  0.0% |   0.1% |     8B | [Unknown] main                                                                                                                               |
+|  0.0% |   0.1% |     6B | embassy_stm32 GPDMA1_CHANNEL0                                                                                                                |
+|  0.0% |   0.1% |     6B | embassy_stm32 GPDMA1_CHANNEL1                                                                                                                |
+|  0.0% |   0.1% |     6B | embassy_stm32 GPDMA1_CHANNEL10                                                                                                               |
+|  0.0% |   0.1% |     6B | embassy_stm32 GPDMA1_CHANNEL11                                                                                                               |
+|  0.4% |   0.8% |    78B | And 15 smaller methods. Use -n N to show more.                                                                                               |
+| 45.5% | 100.0% | 9.7KiB | .text section size, the file size is 21.3KiB                                                                                                 |

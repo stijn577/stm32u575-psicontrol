@@ -20,6 +20,10 @@ harness = false
 name = "toggle_fast"
 harness = false
 
+[[bin]]
+name = "toggle_fast_raw"
+harness = false
+
 [dependencies]
 embassy-stm32 = { path = "../../../embassy/embassy-stm32/", version = "0.1.0", features = [
     # "defmt",
@@ -44,14 +48,15 @@ embassy-time = { path = "../../../embassy/embassy-time", version = "0.3.1", feat
     # "defmt-timestamp-uptime",
     "tick-hz-160_000_000",
 ] }
+stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
 # embassy-usb = { version = "0.2.0", features = ["defmt"] }
 # embassy-futures = { version = "0.1.0" }
 
 # defmt = "0.3"
 # defmt-rtt = "0.4"
 
-cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section"] }
-cortex-m-rt = { version = "0.7.0", features = ["device"] }
+cortex-m = { version = "0.7.7", features = ["inline-asm", "critical-section"] }
+cortex-m-rt = { version = "0.7.3", features = ["device"] }
 embedded-hal = "1.0.0"
 
 panic-probe = { version = "0.3" }

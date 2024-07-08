@@ -16,6 +16,7 @@ dependencies = [
  "functions",
  "panic-probe",
  "setup",
+ "stm32-metapac",
 ]
 
 [[package]]
