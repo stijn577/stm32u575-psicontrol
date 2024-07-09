@@ -3,7 +3,7 @@ use embassy_stm32::exti::ExtiInput;
 use setup::typedefs::Led;
 
 #[task]
-pub async fn btn_interrupt(mut btn: ExtiInput<'static>, mut led: Led) {
+pub async fn btn_interrupt(mut btn: ExtiInput<'static>, mut led: Led) -> ! {
     loop {
         btn.wait_for_rising_edge().await;
         // info!("Button pressed");

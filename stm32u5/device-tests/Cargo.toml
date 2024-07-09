@@ -1,10 +1,10 @@
 [package]
-name = "target-tests"
+name = "device-tests"
 version = "0.1.0"
 edition = "2021"
 
 [[test]]
-name = "target-tests"
+name = "device-tests"
 harness = false
 
 
@@ -31,7 +31,7 @@ embassy-executor = { path = "../../../embassy/embassy-executor", version = "0.5.
 embassy-time = { path = "../../../embassy/embassy-time", version = "0.3.1", features = [
     "defmt",
     "defmt-timestamp-uptime",
-    "tick-hz-160_000_000",      # we need quite a high hz ticker, so we can be more accurate with Instant::now() measurements
+    "tick-hz-160_000_000",    # we need quite a high hz ticker, so we can be more accurate with Instant::now() measurements
 ] }
 embassy-usb = { version = "0.2.0", features = ["defmt"] }
 embassy-futures = { version = "0.1.0" }

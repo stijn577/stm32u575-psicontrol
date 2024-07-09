@@ -2,8 +2,12 @@
 #![no_main]
 
 use embassy_executor::{task, Spawner};
-use embassy_stm32::{gpio::{Level, Output, Speed}, rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale}, Config};
-use setup::{typedefs::Led, Board};
+use embassy_stm32::{
+    gpio::{Level, Output, Speed},
+    rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
+    Config,
+};
+use setup::typedefs::Led;
 
 // use defmt_rtt as _;
 use panic_probe as _;
@@ -13,6 +17,7 @@ async fn main(s: Spawner) {
     // let board = Board::init();
 
     let mut config = Config::default();
+    {
     config.rcc.hsi = true;
     config.rcc.pll1 = Some(Pll {
         source: PllSource::HSI,
@@ -25,6 +30,7 @@ async fn main(s: Spawner) {
     config.rcc.sys = Sysclk::PLL1_R;
     config.rcc.voltage_range = VoltageScale::RANGE1;
     config.rcc.mux.iclksel = Iclksel::HSI48;
+}
     
     let pp = embassy_stm32::init(config);
 

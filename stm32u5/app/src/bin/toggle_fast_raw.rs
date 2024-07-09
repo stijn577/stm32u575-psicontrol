@@ -17,19 +17,21 @@ fn main() -> ! {
     // let board = Board::init();
 
     let mut config = Config::default();
-    config.rcc.hsi = true;
-    config.rcc.pll1 = Some(Pll {
-        source: PllSource::HSI,
-        prediv: PllPreDiv::DIV1,
-        mul: PllMul::MUL10,
-        divp: None,
-        divq: None,
-        divr: Some(PllDiv::DIV1),
-    });
-    config.rcc.sys = Sysclk::PLL1_R;
-    config.rcc.voltage_range = VoltageScale::RANGE1;
-    config.rcc.mux.iclksel = Iclksel::HSI48;
-
+    {
+        config.rcc.hsi = true;
+        config.rcc.pll1 = Some(Pll {
+            source: PllSource::HSI,
+            prediv: PllPreDiv::DIV1,
+            mul: PllMul::MUL10,
+            divp: None,
+            divq: None,
+            divr: Some(PllDiv::DIV1),
+        });
+        config.rcc.sys = Sysclk::PLL1_R;
+        config.rcc.voltage_range = VoltageScale::RANGE1;
+        config.rcc.mux.iclksel = Iclksel::HSI48;
+    }
+   
     let pp = embassy_stm32::init(config);
 
     // use this to set the configurations so the pin can work as an output pin

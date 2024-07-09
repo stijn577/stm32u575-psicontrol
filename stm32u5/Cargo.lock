@@ -228,6 +228,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "device-tests"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "defmt",
+ "defmt-rtt",
+ "defmt-test",
+ "embassy-executor",
+ "embassy-futures 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "embassy-stm32",
+ "embassy-sync 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "embassy-time",
+ "embassy-usb",
+ "embedded-hal 1.0.0",
+ "functions",
+ "panic-probe",
+ "setup",
+]
+
+[[package]]
 name = "document-features"
 version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -919,27 +940,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "target-tests"
-version = "0.1.0"
-dependencies = [
- "cortex-m",
- "cortex-m-rt",
- "defmt",
- "defmt-rtt",
- "defmt-test",
- "embassy-executor",
- "embassy-futures 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "embassy-stm32",
- "embassy-sync 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "embassy-time",
- "embassy-usb",
- "embedded-hal 1.0.0",
- "functions",
- "panic-probe",
- "setup",
 ]
 
 [[package]]

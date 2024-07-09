@@ -2,6 +2,7 @@
 #![no_main]
 
 use embassy_executor::Spawner;
+use embassy_stm32::interrupt;
 use setup::Board;
 use tasks::{btn_interrupt::btn_interrupt, pwm::pwm_gen, uart::uart_rx};
 

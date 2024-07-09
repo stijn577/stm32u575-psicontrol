@@ -1,5 +1,5 @@
 # virtual workspaces allow for seperate packages to share the same target folder.
 
 [workspace]
-members = [ "functions", "host-tests"]
+members = ["functions", "host-tests"]
 resolver = "2"
