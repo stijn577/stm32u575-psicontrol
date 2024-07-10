@@ -16,7 +16,7 @@ dependencies = [
  "functions",
  "panic-probe",
  "setup",
- "stm32-metapac",
+ "stm32-metapac 15.0.0",
 ]
 
 [[package]]
@@ -41,6 +41,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5deb64efa5bd81e31fcd1938615a6d98c82eafcbcd787162b6f63b91d6bac5b3"
 dependencies = [
  "rustc_version 0.2.3",
+]
+
+[[package]]
+name = "baremetal"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "embedded-hal 1.0.0",
+ "functions",
+ "panic-probe",
+ "setup",
+ "stm32-metapac 15.0.0",
 ]
 
 [[package]]
@@ -378,7 +391,7 @@ dependencies = [
  "sdio-host",
  "static_assertions",
  "stm32-fmc",
- "stm32-metapac",
+ "stm32-metapac 15.0.0 (git+https://github.com/embassy-rs/stm32-data-generated?tag=stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645)",
  "vcell",
  "volatile-register",
 ]
@@ -862,7 +875,7 @@ dependencies = [
  "cortex-m",
  "cortex-m-rt",
  "embassy-stm32",
- "stm32-metapac",
+ "stm32-metapac 15.0.0 (git+https://github.com/embassy-rs/stm32-data-generated?tag=stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645)",
 ]
 
 [[package]]
@@ -903,6 +916,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "830ed60f33e6194ecb377f5d6ab765dc0e37e7b65e765f1fa87df13336658d63"
 dependencies = [
  "embedded-hal 0.2.7",
+]
+
+[[package]]
+name = "stm32-metapac"
+version = "15.0.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
 ]
 
 [[package]]

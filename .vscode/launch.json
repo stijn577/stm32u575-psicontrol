@@ -21,6 +21,17 @@
             "runToEntryPoint": "main",
             "showDevDebugOutput": "none",
             "servertype": "stlink"
-        }
+        },
+        {
+            "cwd": "${workspaceFolder}/stm32u5",
+            "preLaunchTask": "build debug",
+            "executable": "./target/thumbv8m.main-none-eabihf/debug/adc_raw",
+            "name": "ADC",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "stlink",
+        },
     ]
 }
