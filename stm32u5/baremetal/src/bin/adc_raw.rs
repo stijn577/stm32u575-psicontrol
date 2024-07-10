@@ -17,6 +17,7 @@ fn main() -> ! {
     let calibration_factor = adc_cal(&mut adc4);
     adc_en(&mut adc4);
     adc_set_clk_psc(&mut adc4);
+    adc_cfg(&mut adc4);
 
     loop {}
 }
@@ -62,4 +63,8 @@ fn adc_en(adc4: &mut Adc) {
 
 fn adc_set_clk_psc(adc4: &mut Adc) {
     adc4.adc_ccr().write(|w| w.set_presc(10))
+}
+
+fn adc_cfg(adc4: &mut Adc) {
+    adc4.adc_chselr().write(|w| w.set_chsel11(true));
 }

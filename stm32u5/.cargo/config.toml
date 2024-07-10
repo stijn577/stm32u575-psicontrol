@@ -32,11 +32,7 @@ rustflags = [
 target = "thumbv8m.main-none-eabihf"
 
 [env]
-<<<<<<< Updated upstream
-DEFMT_LOG = "trace"
-=======
 DEFMT_LOG = "debug"
->>>>>>> Stashed changes
 
 [profile.dev]
 debug = true
