@@ -3,7 +3,6 @@
 
 use cortex_m::asm;
 use cortex_m_rt::entry;
-
 use panic_probe as _;
 use stm32_metapac::{adc::Adc, ADC4};
 
@@ -11,15 +10,23 @@ use stm32_metapac::{adc::Adc, ADC4};
 // register map: p.1430
 #[entry]
 fn main() -> ! {
+    // TODO: probably configure the core clocks etc to feed the ADC, see if that's the issue, things get stuck at while !adc4.adc_isr().read().ldordy()
+
+    stm32_metapac::RCC.cr().write(|w| w.pllrdy(0));
     let mut adc4 = ADC4;
 
     adc_vreg_en(&mut adc4);
     let calibration_factor = adc_cal(&mut adc4);
     adc_en(&mut adc4);
     adc_set_clk_psc(&mut adc4);
-    adc_cfg(&mut adc4);
+    adc_chan_sel(&mut adc4);
+    // ignore sample time for now, let's use default
 
-    loop {}
+    let mut value;
+    loop {
+        adc_start_conversion(&mut adc4);
+        value = adc_wait_done(&mut adc4);
+    }
 }
 
 // p. 1372
@@ -65,6 +72,24 @@ fn adc_set_clk_psc(adc4: &mut Adc) {
     adc4.adc_ccr().write(|w| w.set_presc(10))
 }
 
-fn adc_cfg(adc4: &mut Adc) {
-    adc4.adc_chselr().write(|w| w.set_chsel11(true));
+fn adc_chan_sel(adc4: &mut Adc) {
+    adc4.adc_cfgr1().write(|w| w.set_chselrmod(false)); // technically not needed but for explicitness
+    adc4.adc_chselrmod0().write(|w| w.set_chsel(11)); // p. 1377, ADC4_IN11 => Vin,11
+}
+
+fn adc_start_conversion(adc4: &mut Adc) {
+    adc4.adc_cfgr1().write(|w| {
+        w.set_cont(false);
+        w.set_exten(0);
+    });
+
+    adc4.adc_cr().write(|w| w.set_adstart(true));
+}
+
+fn adc_wait_done(adc4: &mut Adc) -> usize {
+    while adc4.adc_cr().read().adstart() {
+        asm::nop();
+    }
+
+    adc4.adc_dr().read().data().into()
 }
