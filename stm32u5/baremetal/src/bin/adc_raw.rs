@@ -1,10 +1,14 @@
 #![no_std]
 #![no_main]
 
-use cortex_m::asm;
+use adc_cfg::{adc_cal, adc_chan_sel, adc_en, adc_set_clk_psc, adc_start_conversion, adc_vreg_en, adc_wait_done};
 use cortex_m_rt::entry;
 use panic_probe as _;
-use stm32_metapac::{adc::Adc, ADC4};
+use rcc_cfg::{cfg_hsi, cfg_pll, cfg_sys_clk};
+use stm32_metapac::{ADC4, ADC4_COMMON, RCC};
+
+mod adc_cfg;
+mod rcc_cfg;
 
 // docs: https://www.st.com/resource/en/reference_manual/rm0456-stm32u5-series-armbased-32bit-mcus-stmicroelectronics.pdf#page=1363&zoom=100,165,224
 // register map: p.1430
@@ -12,8 +16,8 @@ use stm32_metapac::{adc::Adc, ADC4};
 fn main() -> ! {
     // TODO: probably configure the core clocks etc to feed the ADC, see if that's the issue, things get stuck at while !adc4.adc_isr().read().ldordy()
 
-    stm32_metapac::RCC.cr().write(|w| w.pllrdy(0));
     let mut adc4 = ADC4;
+    let mut adc_common = ADC4_COMMON;
 
     adc_vreg_en(&mut adc4);
     let calibration_factor = adc_cal(&mut adc4);
@@ -27,69 +31,4 @@ fn main() -> ! {
         adc_start_conversion(&mut adc4);
         value = adc_wait_done(&mut adc4);
     }
-}
-
-// p. 1372
-fn adc_vreg_en(adc4: &mut Adc) {
-    adc4.adc_isr().write(|w| w.set_ldordy(true));
-    adc4.adc_cr().write(|w| w.set_advregen(true));
-
-    while !adc4.adc_isr().read().ldordy() {
-        asm::nop();
-    }
-}
-
-// p. 1372
-fn adc_cal(adc4: &mut Adc) -> usize {
-    adc4.adc_pwr().write(|w| w.set_autoff(false));
-
-    assert!(!adc4.adc_cr().read().aden());
-    assert!(adc4.adc_cr().read().advregen());
-    assert!(adc4.adc_isr().read().ldordy());
-    assert!(!adc4.adc_pwr().read().autoff());
-    assert!(!adc4.adc_cfgr1().read().dmaen());
-
-    adc4.adc_cr().write(|w| w.set_adcal(true));
-
-    while adc4.adc_cr().read().adcal() {
-        asm::nop();
-    }
-
-    adc4.adc_calfact().read().calfact().into()
-}
-
-// p. 1374
-fn adc_en(adc4: &mut Adc) {
-    adc4.adc_isr().write(|w| w.set_adrdy(true));
-    adc4.adc_cr().write(|w| w.set_aden(true));
-
-    while adc4.adc_isr().read().adrdy() {
-        asm::nop();
-    }
-}
-
-fn adc_set_clk_psc(adc4: &mut Adc) {
-    adc4.adc_ccr().write(|w| w.set_presc(10))
-}
-
-fn adc_chan_sel(adc4: &mut Adc) {
-    adc4.adc_cfgr1().write(|w| w.set_chselrmod(false)); // technically not needed but for explicitness
-    adc4.adc_chselrmod0().write(|w| w.set_chsel(11)); // p. 1377, ADC4_IN11 => Vin,11
-}
-
-fn adc_start_conversion(adc4: &mut Adc) {
-    adc4.adc_cfgr1().write(|w| {
-        w.set_cont(false);
-        w.set_exten(0);
-    });
-
-    adc4.adc_cr().write(|w| w.set_adstart(true));
-}
-
-fn adc_wait_done(adc4: &mut Adc) -> usize {
-    while adc4.adc_cr().read().adstart() {
-        asm::nop();
-    }
-
-    adc4.adc_dr().read().data().into()
 }
