@@ -5,7 +5,7 @@ use adc_cfg::{adc_cal, adc_chan_sel, adc_en, adc_set_clk_psc, adc_start_conversi
 use cortex_m_rt::entry;
 use panic_probe as _;
 use rcc_cfg::{cfg_hsi, cfg_pll, cfg_sys_clk};
-use stm32_metapac::{ADC4, ADC4_COMMON, RCC};
+use stm32_metapac::{ADC4, ADC4_COMMON};
 
 mod adc_cfg;
 mod rcc_cfg;
