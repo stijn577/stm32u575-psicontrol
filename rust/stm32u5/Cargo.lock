@@ -8,8 +8,6 @@ version = "0.1.0"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",
- "defmt",
- "defmt-rtt",
  "embassy-executor",
  "embassy-stm32",
  "embassy-sync 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -18,7 +16,6 @@ dependencies = [
  "functions",
  "panic-probe",
  "setup",
- "stm32-metapac 15.0.0",
 ]
 
 [[package]]
@@ -43,19 +40,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5deb64efa5bd81e31fcd1938615a6d98c82eafcbcd787162b6f63b91d6bac5b3"
 dependencies = [
  "rustc_version 0.2.3",
-]
-
-[[package]]
-name = "baremetal"
-version = "0.1.0"
-dependencies = [
- "cortex-m",
- "cortex-m-rt",
- "embedded-hal 1.0.0",
- "functions",
- "panic-probe",
- "setup",
- "stm32-metapac 15.0.0",
 ]
 
 [[package]]
@@ -239,7 +223,7 @@ checksum = "984bc6eca246389726ac2826acc2488ca0fe5fcd6b8d9b48797021951d76a125"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.68",
+ "syn 2.0.69",
 ]
 
 [[package]]
@@ -393,7 +377,7 @@ dependencies = [
  "sdio-host",
  "static_assertions",
  "stm32-fmc",
- "stm32-metapac 15.0.0 (git+https://github.com/embassy-rs/stm32-data-generated?tag=stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645)",
+ "stm32-metapac",
  "vcell",
  "volatile-register",
 ]
@@ -875,8 +859,15 @@ name = "setup"
 version = "0.1.0"
 dependencies = [
  "cortex-m",
+<<<<<<<<< Temporary merge branch 1:stm32u5/Cargo.lock
+ "defmt",
+ "defmt-rtt",
+ "embassy-stm32",
+ "stm32-metapac",
+=========
  "cortex-m-rt",
  "embassy-stm32",
+>>>>>>>>> Temporary merge branch 2:rust/stm32u5/Cargo.lock
 ]
 
 [[package]]
@@ -922,14 +913,6 @@ dependencies = [
 [[package]]
 name = "stm32-metapac"
 version = "15.0.0"
-dependencies = [
- "cortex-m",
- "cortex-m-rt",
-]
-
-[[package]]
-name = "stm32-metapac"
-version = "15.0.0"
 source = "git+https://github.com/embassy-rs/stm32-data-generated?tag=stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645#bf02c35d063e1823a156468497b448ae3350a255"
 dependencies = [
  "cortex-m",
@@ -962,6 +945,27 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "target-tests"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "defmt",
+ "defmt-rtt",
+ "defmt-test",
+ "embassy-executor",
+ "embassy-futures 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "embassy-stm32",
+ "embassy-sync 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "embassy-time",
+ "embassy-usb",
+ "embedded-hal 1.0.0",
+ "functions",
+ "panic-probe",
+ "setup",
 ]
 
 [[package]]

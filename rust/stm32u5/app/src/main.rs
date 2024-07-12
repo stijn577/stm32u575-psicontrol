@@ -5,7 +5,7 @@ use embassy_executor::Spawner;
 use setup::Board;
 use tasks::{btn_interrupt::btn_interrupt, pwm::pwm_gen, spi::spi_comm, uart::uart_rx};
 
-use defmt_rtt as _;
+// use defmt_rtt as _;
 use panic_probe as _;
 
 #[macro_use]
