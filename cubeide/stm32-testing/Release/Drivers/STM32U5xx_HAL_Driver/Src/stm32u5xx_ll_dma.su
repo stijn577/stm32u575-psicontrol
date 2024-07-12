@@ -1,0 +1,10 @@
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:280:10:LL_DMA_DeInit	8	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:399:10:LL_DMA_Init	28	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:620:6:LL_DMA_StructInit	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:667:6:LL_DMA_ListStructInit	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:705:10:LL_DMA_List_DeInit	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:742:10:LL_DMA_List_Init	8	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:783:6:LL_DMA_NodeStructInit	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:840:10:LL_DMA_CreateLinkNode	20	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:1150:6:LL_DMA_ConnectLinkNode	8	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dma.c:1165:6:LL_DMA_DisconnectNextLinkNode	0	static
