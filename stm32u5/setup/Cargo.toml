@@ -22,3 +22,4 @@ cortex-m = { version = "0.7.7", features = [
 
 [features]
 defmt = ["dep:defmt", "embassy-stm32/defmt"]
+
