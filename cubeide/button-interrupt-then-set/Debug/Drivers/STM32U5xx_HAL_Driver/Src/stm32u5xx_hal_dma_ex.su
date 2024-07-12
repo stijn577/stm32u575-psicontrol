@@ -1,4 +1,4 @@
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:4234:17:DMA_List_FindNode	32	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:4234:17:DMA_List_FindNode	28	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:4626:13:DMA_List_UpdateStaticQueueNodesCLLR	20	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:4550:13:DMA_List_UpdateDynamicQueueNodesCLLR	36	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:604:19:HAL_DMAEx_List_Init	16	static
@@ -24,7 +24,7 @@
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:2772:19:HAL_DMAEx_List_SetCircularMode	24	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:2855:19:HAL_DMAEx_List_ClearCircularMode	12	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:2926:19:HAL_DMAEx_List_ConvertQToDynamic	128	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:3028:19:HAL_DMAEx_List_ConvertQToStatic	168	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:3028:19:HAL_DMAEx_List_ConvertQToStatic	176	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:3105:19:HAL_DMAEx_List_LinkQ	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:3186:19:HAL_DMAEx_List_UnLinkQ	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c:3256:19:HAL_DMAEx_ConfigDataHandling	4	static

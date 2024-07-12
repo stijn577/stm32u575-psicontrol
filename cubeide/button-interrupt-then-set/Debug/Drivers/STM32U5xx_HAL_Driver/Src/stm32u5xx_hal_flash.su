@@ -1,5 +1,5 @@
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:162:19:HAL_FLASH_Program	32	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:223:19:HAL_FLASH_Program_IT	32	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:162:19:HAL_FLASH_Program	32	static,ignoring_inline_asm
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:223:19:HAL_FLASH_Program_IT	32	static,ignoring_inline_asm
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:394:13:HAL_FLASH_EndOfOperationCallback	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:412:13:HAL_FLASH_OperationErrorCallback	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c:276:6:HAL_FLASH_IRQHandler	16	static

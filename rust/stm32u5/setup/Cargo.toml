@@ -10,8 +10,10 @@ harness = false
 embassy-stm32 = { path = "../../../../embassy/embassy-stm32/", version = "0.1.0", features = [
     "exti",
     "stm32u575zi",
+    "unstable-pac"
 ] }
-stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
+# stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
+# stm32-metapac = { path  = "../../../../stm32-data/build/stm32-metapac"}
 
 cortex-m = { version = "0.7.7", features = [
     "inline-asm",

@@ -12,4 +12,4 @@
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c:1321:10:HAL_DMA_GetError	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c:1365:19:HAL_DMA_ConfigChannelAttributes	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c:1453:19:HAL_DMA_GetConfigChannelAttributes	16	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c:1530:19:HAL_DMA_GetLockChannelAttributes	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c:1530:19:HAL_DMA_GetLockChannelAttributes	4	static

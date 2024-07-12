@@ -4,10 +4,10 @@
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:471:11:HAL_PWREx_GetSupplyConfig	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:480:6:HAL_PWREx_EnableFastSoftStart	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:489:6:HAL_PWREx_DisableFastSoftStart	0	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:653:6:HAL_PWREx_EnterSTOP1Mode	0	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:702:6:HAL_PWREx_EnterSTOP2Mode	0	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:752:6:HAL_PWREx_EnterSTOP3Mode	0	static
-../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:793:6:HAL_PWREx_EnterSHUTDOWNMode	0	static
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:653:6:HAL_PWREx_EnterSTOP1Mode	0	static,ignoring_inline_asm
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:702:6:HAL_PWREx_EnterSTOP2Mode	0	static,ignoring_inline_asm
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:752:6:HAL_PWREx_EnterSTOP3Mode	0	static,ignoring_inline_asm
+../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:793:6:HAL_PWREx_EnterSHUTDOWNMode	0	static,ignoring_inline_asm
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:819:6:HAL_PWREx_ConfigSRDDomain	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:835:6:HAL_PWREx_EnableUltraLowPowerMode	0	static
 ../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c:844:6:HAL_PWREx_DisableUltraLowPowerMode	0	static

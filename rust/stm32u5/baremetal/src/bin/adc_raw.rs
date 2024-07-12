@@ -17,7 +17,6 @@ fn main() -> ! {
     // TODO: probably configure the core clocks etc to feed the ADC, see if that's the issue, things get stuck at while !adc4.adc_isr().read().ldordy()
 
     let mut adc4 = ADC4;
-    let mut adc_common = ADC4_COMMON;
 
     adc_vreg_en(&mut adc4);
     let calibration_factor = adc_cal(&mut adc4);

@@ -7,7 +7,7 @@ pub(crate) fn cfg_hsi(rcc: &mut Rcc) -> u16 {
     let rcc_cal = rcc.icscr3().read().hsical(); // why does this return u16 when its 8 bits long
 
     // wait for hsi to be ready
-    // while !rcc.cr().read().hsirdy() {}
+    while !rcc.cr().read().hsirdy() {}
 
     rcc.cr().write(|w| w.set_hsion(true));
 
@@ -30,4 +30,4 @@ pub(crate) fn cfg_pll(rcc: &mut Rcc) {
     });
 }
 
-pub(crate) fn cfg_sys_clk(rcc: &mut Rcc) {}
+pub(crate) fn cfg_sys_clk(_rcc: &mut Rcc) {}

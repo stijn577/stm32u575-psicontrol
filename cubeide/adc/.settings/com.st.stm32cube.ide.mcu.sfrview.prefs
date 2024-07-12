@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-sfrviewstate={"fFavorites"\:{"fLists"\:{"ADC4"\:["STM32U575/ADC4"]}},"fProperties"\:{"fNodeProperties"\:{"STM32U575/SEC_ADC1/ADC_ISR"\:{"fNodeProperties"\:{"autoupdate"\:"true"}}}}}
+sfrviewstate={"fFavorites"\:{"fLists"\:{"ADC4"\:["STM32U575/ADC4"],"ADC4pin"\:["STM32U575/ADC4"]}},"fProperties"\:{"fNodeProperties"\:{"STM32U575/SEC_ADC1/ADC_ISR"\:{"fNodeProperties"\:{"autoupdate"\:"true"}},"STM32U575/ADC4/ADC_ISR"\:{"fNodeProperties"\:{"autoupdate"\:"true"}},"STM32U575/ADC4/ADC_IER"\:{"fNodeProperties"\:{"autoupdate"\:"true"}}}}}

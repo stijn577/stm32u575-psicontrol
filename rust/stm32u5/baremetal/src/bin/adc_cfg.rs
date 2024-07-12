@@ -1,3 +1,4 @@
+use core::assert;
 use cortex_m::asm;
 use stm32_metapac::adc::Adc;
 
@@ -6,9 +7,9 @@ pub(crate) fn adc_vreg_en(adc4: &mut Adc) {
     adc4.isr().write(|w| w.set_ldordy(true));
     adc4.cr().write(|w| w.set_advregen(true));
 
-    // while !adc4.isr().read().ldordy() {
-    //     asm::nop();
-    // }
+    while !adc4.isr().read().ldordy() {
+        asm::nop();
+    }
 }
 
 // p. 1372

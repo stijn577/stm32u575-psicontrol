@@ -1,5 +1,9 @@
 #![no_std]
 #![no_main]
 
+use cortex_m_rt::entry;
+
 #[entry]
-fn main() {}
+fn main() -> ! {
+    loop {}
+}

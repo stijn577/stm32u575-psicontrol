@@ -5,6 +5,8 @@
 #![no_main]
 
 // use defmt::debug;
+use embassy_stm32::pac::ICACHE;
+use embassy_stm32::spi::{self, Spi};
 use embassy_stm32::{
     bind_interrupts,
     exti::ExtiInput,
@@ -19,7 +21,7 @@ use embassy_stm32::{
     usart::Uart,
     Config,
 };
-use typedefs::{Btn, Led, Pwm, Uart1};
+use typedefs::{Btn, Led, Pwm, Spi2, Uart1};
 
 pub mod typedefs;
 
@@ -38,6 +40,8 @@ pub struct Board {
     pub usart1: Uart1,
     /// Pwm signal generator for driving the blue LED
     pub pwm: Pwm,
+    /// The Spi2 instance of the boar, to communicate over spi
+    pub spi2: Spi2,
 }
 
 impl Board {
@@ -64,7 +68,7 @@ impl Board {
 
         let pp = embassy_stm32::init(config);
 
-        stm32_metapac::ICACHE.cr().write(|cr| {
+        ICACHE.cr().write(|cr| {
             cr.set_en(true);
         });
 
@@ -93,7 +97,10 @@ impl Board {
         );
         // debug!("PWM initialized");
 
-        Self { led, btn, usart1, pwm }
+        let spi_cfg = spi::Config::default();
+        let spi2 = Spi::new(pp.SPI2, pp.PB10, pp.PC1, pp.PC2, pp.GPDMA1_CH12, pp.GPDMA1_CH13, spi_cfg);
+
+        Self { led, btn, usart1, pwm, spi2 }
     }
 
     fn _clock_config(config: &mut Config) {

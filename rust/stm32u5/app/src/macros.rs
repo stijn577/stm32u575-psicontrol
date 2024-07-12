@@ -21,15 +21,16 @@
 #[macro_export]
 macro_rules! qbench {
     ($fn: expr, $freq: literal) => {{
-        use defmt::info;
+        // use defmt::info;
         use embassy_time::Instant;
 
         let before = Instant::now();
-        $fn;
+        let res = $fn;
         let after = Instant::now();
         let diff = after - before;
         let s = diff.as_ticks() as f64 / $freq as f64;
         let us = s * 1_000_000.0;
-        info!("{:?} took {:?}s = {:?}us", stringify!($fn), s, us)
+        // info!("{:?} took {:?}s = {:?}us", stringify!($fn), s, us);
+        res
     }};
 }
