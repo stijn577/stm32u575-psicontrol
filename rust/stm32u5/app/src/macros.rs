@@ -18,19 +18,19 @@
 /// ```txt
 /// [ 140.236815 INFO src/main.rs:26  ] "led.set_high()" took 7.25e-6s = 7.25us
 /// ```
-#[macro_export]
-macro_rules! qbench {
-    ($fn: expr, $freq: literal) => {{
-        // use defmt::info;
-        use embassy_time::Instant;
+// #[macro_export]
+// macro_rules! qbench {
+//     ($fn: expr, $freq: literal) => {{
+//         use defmt::info;
+//         use embassy_time::Instant;
 
-        let before = Instant::now();
-        let res = $fn;
-        let after = Instant::now();
-        let diff = after - before;
-        let s = diff.as_ticks() as f64 / $freq as f64;
-        let us = s * 1_000_000.0;
-        // info!("{:?} took {:?}s = {:?}us", stringify!($fn), s, us);
-        res
-    }};
-}
+//         let before = Instant::now();
+//         let res = $fn;
+//         let after = Instant::now();
+//         let diff = after - before;
+//         let s = diff.as_ticks() as f64 / $freq as f64;
+//         let us = s * 1_000_000.0;
+//         info!("{:?} took {:?}s = {:?}us", stringify!($fn), s, us);
+//         res
+//     }};
+// }

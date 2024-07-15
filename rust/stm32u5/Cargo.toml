@@ -1,5 +1,5 @@
 [workspace]
-members = ["app", "setup", "device-tests", "baremetal"]
+members = ["app", "baremetal", "device-tests", "setup"]
 resolver = "2"
 default-members = ["app"]
 

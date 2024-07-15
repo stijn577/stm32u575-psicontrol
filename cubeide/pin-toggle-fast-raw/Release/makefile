@@ -66,8 +66,8 @@ all: main-build
 main-build: pin-toggle-fast-raw.elf secondary-outputs
 
 # Tool invocations
-pin-toggle-fast-raw.elf pin-toggle-fast-raw.map: $(OBJS) $(USER_OBJS) /home/psicontrol/STM32CubeIDE/workspace_1.16.0/pin-toggle-fast-raw/STM32U575ZITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "pin-toggle-fast-raw.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"/home/psicontrol/STM32CubeIDE/workspace_1.16.0/pin-toggle-fast-raw/STM32U575ZITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="pin-toggle-fast-raw.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+pin-toggle-fast-raw.elf pin-toggle-fast-raw.map: $(OBJS) $(USER_OBJS) /home/psicontrol/Documents/24092/cubeide/pin-toggle-fast-raw/STM32U575ZITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "pin-toggle-fast-raw.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"/home/psicontrol/Documents/24092/cubeide/pin-toggle-fast-raw/STM32U575ZITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="pin-toggle-fast-raw.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

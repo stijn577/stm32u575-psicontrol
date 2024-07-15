@@ -6,6 +6,7 @@
 
 #![no_std]
 
+pub mod macros;
 pub mod pwm;
 
 pub fn add(a: usize, b: usize) -> usize {

@@ -4,7 +4,8 @@
 #![no_std]
 #![no_main]
 
-// use defmt::debug;
+use defmt::debug;
+use embassy_stm32::pac::icache::vals::Waysel;
 use embassy_stm32::pac::ICACHE;
 use embassy_stm32::spi::{self, Spi};
 use embassy_stm32::{
@@ -25,7 +26,8 @@ use typedefs::{Btn, Led, Pwm, Spi2, Uart1};
 
 pub mod typedefs;
 
-bind_interrupts!(struct Irqs {
+#[cfg(feature = "irqs")]
+bind_interrupts!(pub struct Irqs {
     USART1 => embassy_stm32::usart::InterruptHandler<USART1>;
 });
 
@@ -61,6 +63,7 @@ impl Board {
     /// let board = Board::init(pp);
     /// let led = board.led; // led moved out of board here and can be used independently.
     /// ```
+    #[cfg(feature = "init")]
     pub fn init() -> Board {
         let mut config = Config::default();
 
@@ -69,6 +72,7 @@ impl Board {
         let pp = embassy_stm32::init(config);
 
         ICACHE.cr().write(|cr| {
+            cr.set_waysel(Waysel::NWAYSETASSOCIATIVE);
             cr.set_en(true);
         });
 
@@ -105,7 +109,7 @@ impl Board {
 
     fn _clock_config(config: &mut Config) {
         // just a helpful warning when someone did some stuff with the clocks
-        // debug!("Do not use HSE, it is not populated on the board");
+        // // debug!("Do not use HSE, it is not populated on the board");
 
         // use STM32CubeMX for clock config generation, than just copy paste the values
         config.rcc.hsi = true;
@@ -119,6 +123,6 @@ impl Board {
         });
         config.rcc.sys = Sysclk::PLL1_R;
         config.rcc.voltage_range = VoltageScale::RANGE1;
-        config.rcc.mux.iclksel = Iclksel::HSI48;
+        // config.rcc.mux.iclksel = Iclksel::HSI48;
     }
 }

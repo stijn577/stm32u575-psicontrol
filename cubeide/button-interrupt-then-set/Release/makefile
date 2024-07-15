@@ -66,8 +66,8 @@ all: main-build
 main-build: button-interrupt-then-set.elf secondary-outputs
 
 # Tool invocations
-button-interrupt-then-set.elf button-interrupt-then-set.map: $(OBJS) $(USER_OBJS) /home/psicontrol/STM32CubeIDE/workspace_1.16.0/stm32u5-first-steps/STM32U575ZITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "button-interrupt-then-set.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"/home/psicontrol/STM32CubeIDE/workspace_1.16.0/stm32u5-first-steps/STM32U575ZITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="button-interrupt-then-set.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+button-interrupt-then-set.elf button-interrupt-then-set.map: $(OBJS) $(USER_OBJS) /home/psicontrol/Documents/24092/cubeide/button-interrupt-then-set/STM32U575ZITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "button-interrupt-then-set.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"/home/psicontrol/Documents/24092/cubeide/button-interrupt-then-set/STM32U575ZITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="button-interrupt-then-set.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

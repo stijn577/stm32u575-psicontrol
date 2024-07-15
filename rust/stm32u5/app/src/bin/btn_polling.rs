@@ -9,30 +9,34 @@ use embassy_stm32::{
 };
 
 use defmt_rtt as _;
+use functions::qbench;
 use panic_probe as _;
 
 #[embassy_executor::main]
 async fn main(s: Spawner) {
-    let mut config = Config::default();
-    {
-        config.rcc.hsi = true;
-        config.rcc.pll1 = Some(Pll {
-            source: PllSource::HSI,
-            prediv: PllPreDiv::DIV1,
-            mul: PllMul::MUL10,
-            divp: None,
-            divq: None,
-            divr: Some(PllDiv::DIV1),
-        });
-        config.rcc.sys = Sysclk::PLL1_R;
-        config.rcc.voltage_range = VoltageScale::RANGE1;
-        config.rcc.mux.iclksel = Iclksel::HSI48;
-    }
-    
-    let pp = embassy_stm32::init(config);
+    let (btn, led) =  qbench!({
 
-    let btn = Input::new(pp.PC13, Pull::Down);
-    let led = Output::new(pp.PC7, Level::Low, Speed::VeryHigh);
+        let mut config = Config::default();
+        {
+            config.rcc.hsi = true;
+            config.rcc.pll1 = Some(Pll {
+                source: PllSource::HSI,
+                prediv: PllPreDiv::DIV1,
+                mul: PllMul::MUL10,
+                divp: None,
+                divq: None,
+                divr: Some(PllDiv::DIV1),
+            });
+            config.rcc.sys = Sysclk::PLL1_R;
+            config.rcc.voltage_range = VoltageScale::RANGE1;
+            config.rcc.mux.iclksel = Iclksel::HSI48;
+        }
+    
+        let pp = embassy_stm32::init(config);
+
+        (Input::new(pp.PC13, Pull::Down),
+        Output::new(pp.PC7, Level::Low, Speed::VeryHigh))
+    });  
 
     s.spawn(btn_polling(btn, led)).expect("Failed to spawn task");
 }

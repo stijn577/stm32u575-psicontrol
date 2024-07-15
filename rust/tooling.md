@@ -34,12 +34,12 @@ Other flashing tools can be used as well, binary is in target directory, we can 
 # .cargo/config.toml
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
 runner = [
-    "probe-rs",
-    "run",
-    "--chip",
-    "STM32U575ZITxQ",
-    "--log-format",
-    "{[ {t:010} {L:bold:<5} {fff:white:<0}:{l:white:<0} ]} {s}",
+  "probe-rs",
+  "run",
+  "--chip",
+  "STM32U575ZITxQ",
+  "--log-format",
+  "{[ {t:010} {L:bold:<5} {fff:white:<0}:{l:white:<0} ]} {s}",
 ]
 ```
 

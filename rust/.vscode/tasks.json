@@ -1,30 +1,30 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build release",
-            "command": "cargo",
-            "args": [
-                "build",
-                "--release",
-                "--package",
-                "app"
-            ],
-            "options": {
-                "cwd": "./stm32u5"
-            }
-        },
-        {
-            "label": "build debug",
-            "command": "cargo",
-            "args": [
-                "build",
-                "--package",
-                "app"
-            ],
-            "options": {
-                "cwd": "./stm32u5"
-            }
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build release",
+      "command": "cargo",
+      "args": [
+        "build",
+        "--release",
+        "--package",
+        "app"
+      ],
+      "options": {
+        "cwd": "./stm32u5"
+      }
+    },
+    {
+      "label": "build debug",
+      "command": "cargo",
+      "args": [
+        "build",
+        "--package",
+        "app"
+      ],
+      "options": {
+        "cwd": "./stm32u5"
+      }
+    }
+  ]
 }

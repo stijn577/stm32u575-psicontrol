@@ -1,8 +1,8 @@
 [package]
 name = "app"
 version = "0.1.0"
-edition = "2021"
 default-run = "app"
+edition = "2021"
 
 [[bin]]
 name = "app"
@@ -24,39 +24,38 @@ harness = false
 [dependencies.functions]
 version = "0.1.0"
 path = "../../functions"
+features = ["defmt"]
 
-## add setup code 
+## add setup code
 [dependencies.setup]
 version = "0.1.0"
 path = "../setup"
-
+features = ["init"]
 
 [dependencies]
-embassy-stm32 = { path = "../../../../embassy/embassy-stm32/", version = "0.1.0", features = [
-    # "defmt",
-    "exti",
-    "stm32u575zi",
-    # "time",
-    "time-driver-any",
-    "memory-x",
-    "rt",
-    # "unstable-pac",
-] }
-embassy-sync = { version = "0.6.0" }
 embassy-executor = { path = "../../../../embassy/embassy-executor", version = "0.5.0", features = [
     "task-arena-size-32768",
     "arch-cortex-m",
     "executor-thread",
-    # "defmt",
+    "defmt",
     "integrated-timers",
 ] }
+embassy-stm32 = { path = "../../../../embassy/embassy-stm32/", version = "0.1.0", features = [
+    "defmt",
+    "exti",
+    "stm32u575zi",     # "time",
+    "time-driver-any",
+    "memory-x",
+    "rt",              # "unstable-pac",
+] }
+embassy-sync = { version = "0.6.0" }
 embassy-time = { path = "../../../../embassy/embassy-time", version = "0.3.1", features = [
-    # "defmt",
-    # "defmt-timestamp-uptime",
+    "defmt",
+    "defmt-timestamp-uptime-us",
     "tick-hz-160_000_000",
 ] }
-# stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
-stm32-metapac = { path = "../../../../stm32-data/build/stm32-metapac", features = ["stm32u575zi", "rt", "memory-x"]} 
+stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-e0cfd165fd8fffaa0df66a35eeca83b228496645" }
+# stm32-metapac = { path = "../../../../stm32-data/build/stm32-metapac", features = ["stm32u575zi", "rt", "memory-x"] }
 # embassy-usb = { version = "0.2.0", features = ["defmt"] }
 # embassy-futures = { version = "0.1.0" }
 
@@ -73,3 +72,5 @@ embedded-hal = "1.0.0"
 
 panic-probe = { version = "0.3" }
 # heapless = { version = "0.8.0", features = ["defmt-03"] }
+
+[features]
