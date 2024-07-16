@@ -46,7 +46,7 @@ async fn main(s: Spawner) {
 pub async fn toggle_fast(mut led: Led) {
     loop {
 
-        qbench!(led.set_high());
+        led.set_high();
         led.set_low();
     }
 }
