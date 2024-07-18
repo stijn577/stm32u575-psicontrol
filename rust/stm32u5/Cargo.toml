@@ -15,9 +15,12 @@ default-members = ["app"]
 # lto = 'fat'
 # opt-level = 's'
 
+# [profile.release.package.'embassy-stm32']
+# opt-level = 3
+
 [profile.release]
-codegen-units = 1
+codegen-units = 16
 incremental = false
 lto = "fat"
 # we could use 'z' here to go even smaller, but this turns of loop vectorization
-opt-level = 3
+opt-level = 's'

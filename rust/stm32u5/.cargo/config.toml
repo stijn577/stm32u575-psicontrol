@@ -10,7 +10,7 @@ runner = [
 rustflags = [
   # LLD (shipped with the Rust toolchain) is used as the default linker
   "-Clink-arg=-Tlink.x",
-  "-Clink-arg=-Tdefmt.x",
+  # "-Clink-arg=-Tdefmt.x",
   "-Clink-arg=-nmagic",
   # "-C", "link-arg=-Tstlog.x",
 

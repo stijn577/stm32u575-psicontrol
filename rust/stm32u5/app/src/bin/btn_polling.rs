@@ -8,14 +8,13 @@ use embassy_stm32::{
     Config,
 };
 
-use defmt_rtt as _;
+// use defmt_rtt as _;
 use functions::qbench;
 use panic_probe as _;
 
 #[embassy_executor::main]
 async fn main(s: Spawner) {
-    let (btn, led) =  qbench!({
-
+    
         let mut config = Config::default();
         {
             config.rcc.hsi = true;
@@ -31,15 +30,16 @@ async fn main(s: Spawner) {
             config.rcc.voltage_range = VoltageScale::RANGE1;
             config.rcc.mux.iclksel = Iclksel::HSI48;
         }
-    
+
         let pp = embassy_stm32::init(config);
 
-        (Input::new(pp.PC13, Pull::Down),
-        Output::new(pp.PC7, Level::Low, Speed::VeryHigh))
-    });  
+    let btn =     Input::new(pp.PC13, Pull::Down);
+    let led =Output::new(pp.PC12, Level::Low, Speed::VeryHigh);
+    
 
     s.spawn(btn_polling(btn, led)).expect("Failed to spawn task");
 }
+
 #[task]
 pub async fn btn_polling(btn: Input<'static>, mut led: Output<'static>) {
     loop {

@@ -14,13 +14,13 @@ use embassy_stm32::{
     Config,
 };
 
-use defmt_rtt as _;
+// use defmt_rtt as _;
 use functions::qbench;
 use panic_probe as _;
 
 #[embassy_executor::main]
 async fn main(s: Spawner) {
-    let (btn, led) = qbench!({
+     
         let mut config = Config::default();
         {
             config.rcc.hsi = true;
@@ -38,8 +38,9 @@ async fn main(s: Spawner) {
         }
         let pp = embassy_stm32::init(config);
 
-        (ExtiInput::new(pp.PC13, pp.EXTI13, Pull::Down), Output::new(pp.PC7, Level::Low, Speed::VeryHigh))
-    });
+        let btn = ExtiInput::new(pp.PC13, pp.EXTI13, Pull::Down); 
+        let led =  Output::new(pp.PC12, Level::Low, Speed::VeryHigh);
+    
 
     s.spawn(btn_interrupt(btn, led)).expect("Failed to start task");
 }

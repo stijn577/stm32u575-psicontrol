@@ -10,14 +10,14 @@ use functions::qbench;
 use setup::Board;
 use tasks::{btn_interrupt::btn_interrupt, pwm::pwm_gen, spi::spi_comm, uart::uart_comm};
 
-use defmt_rtt as _;
+// use defmt_rtt as _;
 use panic_probe as _;
 
 mod tasks;
 
 #[embassy_executor::main]
 async fn main(s: Spawner) {
-    let board = qbench!(Board::init());
+    let board = Board::init();
     // let usart1 = qbench!({
     //     let mut config = Config::default();
     //     {

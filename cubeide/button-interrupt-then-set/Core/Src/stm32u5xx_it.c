@@ -208,9 +208,9 @@ void EXTI13_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
   /* USER CODE BEGIN EXTI13_IRQn 1 */
 	if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)) {
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, 1);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, 1);
 	} else {
-		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, 0);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, 0);
 	}
   /* USER CODE END EXTI13_IRQn 1 */
 }

@@ -42,7 +42,7 @@ pub(crate) fn adc_en(adc4: &mut Adc) {
 }
 
 pub(crate) fn adc_set_clk_psc(adc4: &mut Adc) {
-    adc4.ccr().write(|w| w.set_presc(10));
+    adc4.ccr().write(|w| w.set_presc(2));
 }
 
 pub(crate) fn adc_chan_sel(adc4: &mut Adc) {
