@@ -1,3 +1,5 @@
+/cubeide/.metadata
+
 /rust/target
 /rust/stm32u5/target
-/cubeide/.metadata
+/rust/stm32u5/asm

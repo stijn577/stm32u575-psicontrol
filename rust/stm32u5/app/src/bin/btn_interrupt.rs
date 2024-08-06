@@ -3,6 +3,7 @@
 
 use core::any::Any;
 
+use cortex_m::peripheral::CPUID;
 use cortex_m::peripheral::DWT;
 // use defmt::info;
 use embassy_executor::task;

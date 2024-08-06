@@ -4,16 +4,13 @@
 #![no_std]
 #![no_main]
 
-use defmt::debug;
-use embassy_stm32::pac::icache::vals::Waysel;
-use embassy_stm32::pac::ICACHE;
 use embassy_stm32::spi::{self, Spi};
 use embassy_stm32::{
     bind_interrupts,
     exti::ExtiInput,
     gpio::{Output, OutputType, Pull, Speed},
     peripherals::USART1,
-    rcc::{mux::Iclksel, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
+    rcc::{Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
     time::Hertz,
     timer::{
         low_level::CountingMode,
@@ -69,31 +66,32 @@ impl Board {
 
         Self::_clock_config(&mut config);
 
-        let pp = embassy_stm32::init(config);
+        let cp = cortex_m::Peripherals::take().unwrap(); // take core peripherals
+        let dp = embassy_stm32::init(config); // take device peripherals
 
-        ICACHE.cr().write(|cr| {
-            cr.set_waysel(Waysel::NWAYSETASSOCIATIVE);
-            cr.set_en(true);
-        });
+        let mut scb = cp.SCB;
+        scb.enable_icache();
+        let mut cpuid = cp.CPUID;
+        scb.enable_dcache(&mut cpuid);
 
-        let led = Output::new(pp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
+        let led = Output::new(dp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
         // debug!("LED initialized");
 
         // Warning:
         // The PC13 I/O used for the user button must be set to INPUT, pull‑down (PD) with
         // debouncing. Never set the PC13 to OUTPUT/LOW level to avoid a shortcut when the user
         // button is pressed.
-        let btn = ExtiInput::new(pp.PC13, pp.EXTI13, Pull::Down);
+        let btn = ExtiInput::new(dp.PC13, dp.EXTI13, Pull::Down);
         // debug!("Button initialized");
 
         // it's ok to expect() here, because the device would not be initialized correctly if this fails
-        let usart1 = Uart::new(pp.USART1, pp.PA10, pp.PA9, Irqs, pp.GPDMA1_CH10, pp.GPDMA1_CH11, Default::default()).expect("Failed to initialize USART1");
+        let usart1 = Uart::new(dp.USART1, dp.PA10, dp.PA9, Irqs, dp.GPDMA1_CH10, dp.GPDMA1_CH11, Default::default()).expect("Failed to initialize USART1");
         // debug!("USART1 initialized");
 
         let pwm = SimplePwm::new(
-            pp.TIM4,
+            dp.TIM4,
             None,
-            Some(PwmPin::new_ch2(pp.PB7, OutputType::PushPull)),
+            Some(PwmPin::new_ch2(dp.PB7, OutputType::PushPull)),
             None,
             None,
             Hertz::khz(160),
@@ -102,7 +100,7 @@ impl Board {
         // debug!("PWM initialized");
 
         let spi_cfg = spi::Config::default();
-        let spi2 = Spi::new(pp.SPI2, pp.PB10, pp.PC1, pp.PC2, pp.GPDMA1_CH12, pp.GPDMA1_CH13, spi_cfg);
+        let spi2 = Spi::new(dp.SPI2, dp.PB10, dp.PC1, dp.PC2, dp.GPDMA1_CH12, dp.GPDMA1_CH13, spi_cfg);
 
         Self { led, btn, usart1, pwm, spi2 }
     }

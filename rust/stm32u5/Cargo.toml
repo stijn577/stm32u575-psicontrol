@@ -19,8 +19,9 @@ default-members = ["app"]
 # opt-level = 3
 
 [profile.release]
+debug = true # can be useful for disassembly or when you want logging in release mode
 codegen-units = 16
 incremental = false
 lto = "fat"
 # we could use 'z' here to go even smaller, but this turns of loop vectorization
-opt-level = 's'
+opt-level = 3
