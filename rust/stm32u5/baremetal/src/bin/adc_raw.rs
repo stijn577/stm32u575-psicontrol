@@ -4,7 +4,6 @@
 use adc_cfg::{adc_cal, adc_chan_sel, adc_en, adc_set_clk_psc, adc_start_conversion, adc_vreg_en, adc_wait_done};
 use cortex_m::asm;
 use cortex_m_rt::entry;
-use panic_probe as _;
 // use rcc_cfg::{cfg_hsi, cfg_pll, cfg_sys_clk};
 use stm32_metapac::{
     common::W,

@@ -9,8 +9,8 @@ use embassy_stm32::{
 };
 // use setup::{typedefs::Led, Board};
 
-// use defmt_rtt as _;
-use functions::qbench;
+use defmt_rtt as _;
+// use functions::qbench;
 use panic_probe as _;
 use stm32_metapac::{gpio::Gpio, GPIOC};
 

@@ -10,8 +10,8 @@ runner = [
 rustflags = [
   # LLD (shipped with the Rust toolchain) is used as the default linker
   "-Clink-arg=-Tlink.x",
-  # "-Clink-arg=-Tdefmt.x",
-  "-Clink-arg=-nmagic",
+  "-Clink-arg=-Tdefmt.x",
+  # "-Clink-arg=-nmagic",
   # "-C", "link-arg=-Tstlog.x",
 
   # if you run into problems with LLD switch to the GNU linker by commenting out
@@ -32,10 +32,10 @@ rustflags = [
 target = "thumbv8m.main-none-eabihf"
 
 [env]
-DEFMT_LOG = "info"
+DEFMT_LOG = "debug"
 
 [profile.dev]
 debug = true
 
 [profile.release]
-# debug = true
+debug = true

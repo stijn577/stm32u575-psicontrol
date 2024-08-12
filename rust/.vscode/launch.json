@@ -1,23 +1,6 @@
 {
     "configurations": [
         {
-            "type": "probe-rs-debug",
-            "request": "launch",
-            "name": "probe-rs Test",
-            "connectUnderReset": true,
-            "chip": "STM32U575ZITxQ",
-            "flashingConfig": {
-                "flashingEnabled": true,
-                "haltAfterReset": true
-            },
-            "coreConfigs": [
-                {
-                    "coreIndex": 0,
-                    "programBinary": "stm32u5/target/thumbv8m.main-none-eabihf/debug/adc_raw"
-                }
-            ]
-        },
-        {
             "cwd": "${workspaceFolder}/stm32u5",
             "preLaunchTask": "build debug",
             "executable": "./target/thumbv8m.main-none-eabihf/debug/app",
@@ -26,29 +9,11 @@
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "showDevDebugOutput": "none",
-            "servertype": "stlink"
+            "servertype": "stlink",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 16
+            }
         },
-        {
-            "cwd": "${workspaceFolder}/stm32u5",
-            "preLaunchTask": "build release",
-            "executable": "./target/thumbv8m.main-none-eabihf/release/app",
-            "name": "Debug App Release",
-            "request": "launch",
-            "type": "cortex-debug",
-            "runToEntryPoint": "main",
-            "showDevDebugOutput": "none",
-            "servertype": "stlink"
-        },
-        {
-            "cwd": "${workspaceFolder}/stm32u5",
-            //   "preLaunchTask": "build debug",
-            "executable": "./target/thumbv8m.main-none-eabihf/debug/adc_raw",
-            "name": "ADC",
-            "request": "launch",
-            "type": "cortex-debug",
-            "runToEntryPoint": "main",
-            "showDevDebugOutput": "raw",
-            "servertype": "stlink"
-        }
     ]
 }

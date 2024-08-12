@@ -1,5 +1,5 @@
 [workspace]
-members = ["app", "baremetal", "device-tests", "setup"]
+members = ["app", "baremetal", "cbinder-sys","device-tests", "setup"]
 resolver = "2"
 default-members = ["app"]
 
@@ -24,4 +24,4 @@ codegen-units = 16
 incremental = false
 lto = "fat"
 # we could use 'z' here to go even smaller, but this turns of loop vectorization
-opt-level = 3
+opt-level = 's'

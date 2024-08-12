@@ -1,22 +1,22 @@
-// use defmt::{info, warn};
-
+use core::str::FromStr;
 use embassy_executor::task;
+use embassy_time::Timer;
+use functions::{
+    messages::{Message, MessageTransceiver},
+    password::{PWBuff, Password, Unencrypted},
+};
 use setup::typedefs::Uart1;
 
 #[task]
 pub async fn uart_comm(mut usart1: Uart1) {
-    let mut buffer = [0u8; 1024];
-    let mut _res;
     loop {
-        // match usart1.read(&mut buffer).await {
-        //     Ok(_) => info!("Read from uart succes: {:?}", &buffer),
-        //     Err(_) => warn!("Failed to read from uart"),
-        // }
-        // match usart1.write(&buffer).await {
-        //     Ok(_) => info!("Wrote to uart succes: {:?}", &buffer),
-        //     Err(_) => warn!("Failed to write to uart"),
-        // }
-        _res = usart1.read(&mut buffer).await;
-        _res = usart1.write(&buffer).await;
+        let msg = Message::HelloWorld;
+        usart1.send_message(&msg).await.unwrap();
+        Timer::after_millis(2000).await;
+
+        let pw = Password::<Unencrypted>::new(PWBuff::from_str("test").unwrap());
+        let msg = Message::Password(pw.encrypt());
+        usart1.send_message(&msg).await.unwrap();
+        Timer::after_millis(2000).await;
     }
 }

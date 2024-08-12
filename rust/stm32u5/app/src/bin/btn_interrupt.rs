@@ -1,10 +1,7 @@
 #![no_std]
 #![no_main]
 
-use core::any::Any;
 
-use cortex_m::peripheral::CPUID;
-use cortex_m::peripheral::DWT;
 // use defmt::info;
 use embassy_executor::task;
 use embassy_executor::Spawner;
@@ -15,8 +12,8 @@ use embassy_stm32::{
     Config,
 };
 
-// use defmt_rtt as _;
-use functions::qbench;
+use defmt_rtt as _;
+// use functions::qbench;
 use panic_probe as _;
 
 #[embassy_executor::main]

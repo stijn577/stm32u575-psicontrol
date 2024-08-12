@@ -4,5 +4,6 @@
         "stm32u5/Cargo.toml",
     ],
     "rust-analyzer.check.allTargets": false,
-    "rust-analyzer.check.targets": "thumbv8m.main-none-eabihf"
+    "rust-analyzer.check.targets": "thumbv8m.main-none-eabihf",
+    "cortex-debug.variableUseNaturalFormat": true
 }

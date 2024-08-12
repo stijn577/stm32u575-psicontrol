@@ -7,10 +7,10 @@ use embassy_stm32::{
     can::Timestamp, gpio::{Level, Output, Speed}, rcc::{mux::Iclksel, AHBPrescaler, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale}, Config
 };
 use embassy_time::Timer;
-use functions::qbench;
-use setup::typedefs::Led;
+// use functions::qbench;
+use setup::typedefs::LedGreen;
 
-// use defmt_rtt as _;
+use defmt_rtt as _;
 use panic_probe as _;
 use stm32_metapac::lptim::vals::Presc;
 
@@ -46,7 +46,7 @@ async fn main(s: Spawner) {
 }
 
 #[task]
-pub async fn toggle_fast(mut led: Led) {
+pub async fn toggle_fast(mut led: LedGreen) {
     loop {
         led.set_high();
         led.set_low();

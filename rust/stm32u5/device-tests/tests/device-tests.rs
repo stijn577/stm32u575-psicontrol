@@ -27,7 +27,7 @@ mod tests {
 
     #[test]
     fn test_led_set_high(board: &mut Board) {
-        let led = &mut board.led;
+        let led = &mut board.led_green;
 
         led.set_high();
 

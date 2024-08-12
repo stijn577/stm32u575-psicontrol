@@ -1,2 +1,5 @@
 [language-server.rust-analyzer.config]
 linkedProjects = ["Cargo.toml", "stm32u5/Cargo.toml"]
+
+[[cargo]]
+features = "all"

@@ -4,8 +4,23 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-defmt = { version = "0.3.8", optional = true }
-
+defmt = { version = "0.3.8", optional = true, default-features = false }
+embassy-stm32 = { version = "0.1.0", path = "../../../embassy/embassy-stm32", optional = true, features = [
+    "stm32u575zi",
+] }
+serde = { version = "1.0.205", optional = true, default-features = false, features = [
+    "derive",
+] }
+ciborium = { version = "0.2.2", optional = true, default-features = false }
+thiserror-no-std = "2.0.2"
+heapless = { version = "0.8.0" }
 
 [features]
-defmt = ["dep:defmt"]
+default = ["serde", "alloc", "defmt", "embassy"]
+
+serde = ["dep:serde", "heapless/serde"]
+alloc = ["dep:ciborium", "serde"]
+defmt = ["dep:defmt", "embassy-stm32/defmt", "heapless/defmt-03"]
+embassy = ["dep:embassy-stm32"]
+
+std = []

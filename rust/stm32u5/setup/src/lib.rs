@@ -4,7 +4,7 @@
 #![no_std]
 #![no_main]
 
-use embassy_stm32::spi::{self, Spi};
+use defmt::debug;
 use embassy_stm32::{
     bind_interrupts,
     exti::ExtiInput,
@@ -19,8 +19,10 @@ use embassy_stm32::{
     usart::Uart,
     Config,
 };
-use typedefs::{Btn, Led, Pwm, Spi2, Uart1};
+use typedefs::{Btn, LedGreen, LedRed, Pwm, Spi2, Uart1};
 
+#[cfg(feature = "alloc")]
+pub mod heap;
 pub mod typedefs;
 
 #[cfg(feature = "irqs")]
@@ -32,14 +34,16 @@ bind_interrupts!(pub struct Irqs {
 /// Fields are public so they can be moved out of the struct easily.
 pub struct Board {
     /// GPIO output to drive the green LED
-    pub led: Led,
+    pub led_green: LedGreen,
+    /// GPIO output to drive the red LED
+    pub led_red: LedRed,
     /// The blue button on the board.
     pub btn: Btn,
     /// The usart1 instance of the board, to communicate over uart
     pub usart1: Uart1,
     /// Pwm signal generator for driving the blue LED
     pub pwm: Pwm,
-    /// The Spi2 instance of the boar, to communicate over spi
+    // The Spi2 instance of the boar, to communicate over spi
     pub spi2: Spi2,
 }
 
@@ -61,7 +65,15 @@ impl Board {
     /// let led = board.led; // led moved out of board here and can be used independently.
     /// ```
     #[cfg(feature = "init")]
-    pub fn init() -> Board {
+    pub fn init(#[cfg(feature = "alloc")] heap_size: usize) -> Board {
+        use embassy_stm32::{
+            gpio::Level,
+            spi::{self, BitOrder, Mode, Spi},
+        };
+
+        #[cfg(feature = "alloc")]
+        crate::heap::heap_init(heap_size);
+
         let mut config = Config::default();
 
         Self::_clock_config(&mut config);
@@ -74,19 +86,20 @@ impl Board {
         let mut cpuid = cp.CPUID;
         scb.enable_dcache(&mut cpuid);
 
-        let led = Output::new(dp.PC7, embassy_stm32::gpio::Level::Low, Speed::VeryHigh);
-        // debug!("LED initialized");
+        let led_green = Output::new(dp.PC7, Level::Low, Speed::VeryHigh);
+        let led_red = Output::new(dp.PG2, Level::High, Speed::VeryHigh);
+        debug!("LED initialized");
 
         // Warning:
         // The PC13 I/O used for the user button must be set to INPUT, pull‑down (PD) with
         // debouncing. Never set the PC13 to OUTPUT/LOW level to avoid a shortcut when the user
         // button is pressed.
         let btn = ExtiInput::new(dp.PC13, dp.EXTI13, Pull::Down);
-        // debug!("Button initialized");
+        debug!("Button initialized");
 
         // it's ok to expect() here, because the device would not be initialized correctly if this fails
         let usart1 = Uart::new(dp.USART1, dp.PA10, dp.PA9, Irqs, dp.GPDMA1_CH10, dp.GPDMA1_CH11, Default::default()).expect("Failed to initialize USART1");
-        // debug!("USART1 initialized");
+        debug!("USART1 initialized");
 
         let pwm = SimplePwm::new(
             dp.TIM4,
@@ -97,17 +110,30 @@ impl Board {
             Hertz::khz(160),
             CountingMode::EdgeAlignedUp,
         );
-        // debug!("PWM initialized");
+        debug!("PWM initialized");
 
-        let spi_cfg = spi::Config::default();
+        let mut spi_cfg = spi::Config::default();
+        spi_cfg.frequency = Hertz::mhz(80);
+        spi_cfg.bit_order = BitOrder::MsbFirst;
+        spi_cfg.mode = Mode {
+            polarity: spi::Polarity::IdleLow,
+            phase: spi::Phase::CaptureOnFirstTransition,
+        };
         let spi2 = Spi::new(dp.SPI2, dp.PB10, dp.PC1, dp.PC2, dp.GPDMA1_CH12, dp.GPDMA1_CH13, spi_cfg);
 
-        Self { led, btn, usart1, pwm, spi2 }
+        Self {
+            led_green,
+            led_red,
+            btn,
+            usart1,
+            pwm,
+            spi2,
+        }
     }
 
     fn _clock_config(config: &mut Config) {
         // just a helpful warning when someone did some stuff with the clocks
-        // // debug!("Do not use HSE, it is not populated on the board");
+        debug!("Do not use HSE, it is not populated on the board");
 
         // use STM32CubeMX for clock config generation, than just copy paste the values
         config.rcc.hsi = true;
