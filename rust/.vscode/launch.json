@@ -3,6 +3,25 @@
         {
             "cwd": "${workspaceFolder}/stm32u5",
             "preLaunchTask": "build debug",
+            "type": "probe-rs-debug",
+            "request": "launch",
+            "name": "probe-rs Debug app",
+            "connectUnderReset": false,
+            "chip": "STM32U575ZITxQ",
+            "flashingConfig": {
+                "flashingEnabled": true,
+                "haltAfterReset": true
+            },
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    "programBinary": "./target/thumbv8m.main-none-eabihf/debug/app"
+                }
+            ]
+        },
+        {
+            "cwd": "${workspaceFolder}/stm32u5",
+            "preLaunchTask": "build debug",
             "executable": "./target/thumbv8m.main-none-eabihf/debug/app",
             "name": "Debug App",
             "request": "launch",

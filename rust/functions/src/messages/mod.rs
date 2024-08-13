@@ -13,10 +13,7 @@ pub type Buff = heapless::String<32>;
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Clone)]
-pub enum Message {
-    HelloWorld,
-    Password(Password<Encrypted>),
-}
+pub enum Message {HelloWorld,Password(Password<Encrypted>),}
 
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[derive(thiserror_no_std::Error, Debug)]

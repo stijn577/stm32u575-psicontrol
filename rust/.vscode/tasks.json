@@ -8,11 +8,16 @@
                 "build",
                 "--release",
                 "--package",
+                "app",
+                "--bin",
                 "app"
             ],
             "options": {
                 "cwd": "./stm32u5"
             },
+            "presentation": {
+                "close": true
+            }
         },
         {
             "label": "build debug",
@@ -20,10 +25,15 @@
             "args": [
                 "build",
                 "--package",
+                "app",
+                "--bin",
                 "app"
             ],
             "options": {
                 "cwd": "./stm32u5"
+            },
+            "presentation": {
+                "close": true
             }
         }
     ]

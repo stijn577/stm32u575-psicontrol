@@ -5,7 +5,7 @@ use core::{
 };
 use serde::{Deserialize, Serialize};
 
-pub type PWBuff = heapless::String<1024>;
+pub type PWBuff = heapless::String<128>;
 
 #[derive(Clone)]
 pub struct Encrypted;

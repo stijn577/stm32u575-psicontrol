@@ -1,4 +1,3 @@
-use defmt::info;
 use embassy_executor::task;
 use embassy_stm32::gpio::Output;
 use embassy_time::Timer;
@@ -14,8 +13,7 @@ pub fn increment(v: u32) -> u32 {
 pub async fn cbinder_example(mut led_red: Output<'static>) -> ! {
     let mut a = 0;
     loop {
-        info!("a={:?}", a);
-        Timer::after_secs(1).await;
+        Timer::after_millis(a.into()).await;
         a = increment(a);
         led_red.toggle();
     }    

@@ -2,16 +2,20 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    // create the cube library
+    // create the libcbinder.a file
     let mut build = cc::Build::new();
-    for entry in glob::glob("../cbinder/**/*.c").unwrap() {
-        build.file(entry.unwrap());
+    for entry in glob::glob("../cbinder/Src/**/*.c").unwrap() {
+        let entry = &entry.unwrap();
+        // add the file for compilation
+        build.file(entry);
+        // rerun build.rs if one of the source files changes
+        println!("cargo:rerun-if-changed={}", entry.display());
     }
     build.compile("cbinder");
 
-    println!("cargo:rustc-link-lib=static=cbinder");
-    println!("cargo:rustc-link-search=native=.");
-    println!("cargo:rerun-if-changed=libcbinder.a");
+    // tell cargo to link the libcbinder.a file
+    println!("cargo::rustc-link-lib=static=cbinder");
+    println!("cargo::rustc-link-search=native=.");
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for

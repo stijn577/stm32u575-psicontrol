@@ -8,7 +8,7 @@ use functions::{
 use setup::typedefs::Uart1;
 
 #[task]
-pub async fn uart_comm(mut usart1: Uart1) {
+pub async fn uart_comm(mut usart1: Uart1) -> ! {
     loop {
         let msg = Message::HelloWorld;
         usart1.send_message(&msg).await.unwrap();

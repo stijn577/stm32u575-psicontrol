@@ -21,5 +21,5 @@ async fn main(s: Spawner) {
     s.spawn(pwm_gen(board.pwm)).expect("Failed to start PWM task");
     s.spawn(spi_comm(board.spi2)).expect("Failed to start SPI task");
     s.spawn(uart_comm(board.usart1)).expect("Failed to start UART task");
-    s.spawn(heap_info()).expect("Failed to start heap info task")
+    s.spawn(heap_info()).expect("Failed to start heap info task");
 }
