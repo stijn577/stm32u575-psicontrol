@@ -33,7 +33,7 @@ path = "../setup"
 features = ["init"]
 
 [dependencies]
-embassy-executor = { path = "../../../../embassy/embassy-executor", version = "0.5.0", features = [
+embassy-executor = { path = "../../../../embassy/embassy-executor", version = "0.6.0", features = [
     "task-arena-size-32768",
     "arch-cortex-m",
     "executor-thread",

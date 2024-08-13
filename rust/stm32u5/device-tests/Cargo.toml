@@ -11,7 +11,7 @@ harness = false
 functions = { path = "../../functions" }
 setup = { path = "../setup" }
 
-embassy-executor = { path = "../../../../embassy/embassy-executor", version = "0.5.0", features = ["task-arena-size-32768", "arch-cortex-m", "executor-thread", "defmt", "integrated-timers"] }
+embassy-executor = { path = "../../../../embassy/embassy-executor", version = "0.6.0", features = ["task-arena-size-32768", "arch-cortex-m", "executor-thread", "defmt", "integrated-timers"] }
 embassy-futures = { version = "0.1.0" }
 embassy-stm32 = { path = "../../../../embassy/embassy-stm32/", version = "0.1.0", features = ["defmt", "exti", "stm32u575zi", "time-driver-any", "memory-x", "rt"] }
 embassy-sync = { version = "0.6.0", features = ["defmt"] }
